@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -51,6 +51,7 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
+  gem 'minitest-power_assert'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
@@ -59,6 +60,9 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'dotenv-rails'
+gem 'omniauth-github'
+gem 'pundit'
 gem 'rails-i18n'
 gem 'rollbar'
+gem 'simple_form'
 gem 'slim-rails'

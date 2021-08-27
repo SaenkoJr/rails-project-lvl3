@@ -7,8 +7,7 @@ require:
 AllCops:
   Exclude:
     - 'bin/**'
-    - 'db/schema.rb'
-    - 'db/migrate/**'
+    - 'db/**/*'
     - 'vendor/**/*'
     - 'node_modules/**/*'
   NewCops: enable

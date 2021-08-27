@@ -22,6 +22,9 @@ lint-fix:
 test:
 	bin/rails test $(ARGS)
 
+restart:
+	bin/rails restart
+
 heroku-start:
 	bundle exec heroku local
 
