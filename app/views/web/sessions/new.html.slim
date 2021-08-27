@@ -4,3 +4,5 @@ h2 Sign in
   = f.input :email
   = f.input :password
   = f.button :submit
+
+= link_to 'Github', auth_request_path(:github), method: :post

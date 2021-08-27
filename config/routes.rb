@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   scope module: :web do
     root 'home#index'
 
-    post 'auth/:provider/callback', to: 'sessions#create'
+    post 'auth/:provider', to: 'sessions#request', as: :auth_request
+    get 'auth/:provider/callback', to: 'sessions#callback', as: :auth_callback
 
     resource :session, only: %i[new create destroy]
 

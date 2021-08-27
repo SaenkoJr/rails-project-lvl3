@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Web::UsersController < Web::ApplicationController
-  before_action :set_user, only: %i[show update destroy]
+  before_action :set_user, only: %i[show edit update destroy]
 
   def new
     @user = User.new
   end
 
   def show; end
+
+  def edit; end
 
   def create
     @user = User.new user_params
@@ -16,7 +18,7 @@ class Web::UsersController < Web::ApplicationController
       sign_in(@user)
       redirect_to user_path
     else
-      render :new
+      render :edit
     end
   end
 

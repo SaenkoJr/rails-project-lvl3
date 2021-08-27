@@ -5,6 +5,19 @@ class Web::SessionsController < Web::ApplicationController
     @user = User.new
   end
 
+  def callback
+    user = User.find_or_initialize_by(email: auth.info.email)
+
+    unless user.persisted?
+      user.last_name, user.first_name = auth.info.name.split
+      user.password = BCrypt::Password.create ENV['SECRET_PASSWORD']
+      user.save!
+    end
+
+    sign_in user
+    redirect_to user_path
+  end
+
   def create
     user = User.find_by(email: sign_in_params[:email])
 
@@ -23,7 +36,7 @@ class Web::SessionsController < Web::ApplicationController
 
   private
 
-  def auth_hash
+  def auth
     request.env['omniauth.auth']
   end
 
