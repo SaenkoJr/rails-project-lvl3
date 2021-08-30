@@ -24,9 +24,9 @@ class Web::UsersController < Web::ApplicationController
 
   def update
     if @user.update user_params
-      redirect_to root_path
+      redirect_to user_path
     else
-      render :new
+      render :edit
     end
   end
 
@@ -38,7 +38,7 @@ class Web::UsersController < Web::ApplicationController
   private
 
   def set_user
-    @user = User.find(session[:user_id])
+    @user = current_user
   end
 
   def user_params

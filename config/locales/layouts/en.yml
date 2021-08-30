@@ -1,0 +1,8 @@
+en:
+  layouts:
+    shared:
+      nav:
+        sign_in: Sign in
+        sign_up: Sign up
+        sign_out: Log out
+        profile: Profile

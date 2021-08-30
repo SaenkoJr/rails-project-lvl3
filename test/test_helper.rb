@@ -12,8 +12,6 @@ OmniAuth.config.add_mock(
 Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
 
 class ActiveSupport::TestCase
-  include AuthConcern
-
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
@@ -21,4 +19,18 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+end
+
+class ActionDispatch::IntegrationTest
+  include AuthConcern
+
+  def sign_in_as(name)
+    user = users(name)
+    post session_url, params: {
+      user: {
+        email: user.email,
+        password: 'password'
+      }
+    }
+  end
 end

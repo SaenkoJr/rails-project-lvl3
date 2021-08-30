@@ -1,0 +1,11 @@
+en:
+  web:
+    users:
+      show:
+        heading: Profile
+        update_profile: Update info
+        update_password: Update password
+      edit:
+        heading: Update info
+      security:
+        heading: Update password

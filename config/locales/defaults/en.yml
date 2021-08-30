@@ -31,3 +31,12 @@
 
 en:
   title: 'Bulletin board'
+  show: Show
+  edit: Edit
+  back: Back
+  destroy: Delete
+  destroy_confirmation: Are you sure?
+
+  time:
+    formats:
+      default: "%d %b %Y %H:%M"
