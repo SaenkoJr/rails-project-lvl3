@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Web::PasswordsController < ApplicationController
+class Web::PasswordsController < Web::ApplicationController
   def edit
     @form = User::PasswordForm.new user: current_user
   end
@@ -9,7 +9,7 @@ class Web::PasswordsController < ApplicationController
     @form = User::PasswordForm.new(password_params, user: current_user)
 
     if @form.update
-      redirect_to user_path
+      redirect_to user_path current_user
     else
       render :edit
     end

@@ -9,8 +9,7 @@ class Web::PasswordsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update password' do
-    user = users(:one)
-    sign_in_as :one
+    user = sign_in_as :one
 
     old_password_digest = user.password_digest
     old_password = 'password'

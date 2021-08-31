@@ -15,7 +15,7 @@ class Web::SessionsController < Web::ApplicationController
     end
 
     sign_in user
-    redirect_to user_path
+    redirect_to user
   end
 
   def create

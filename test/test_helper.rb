@@ -32,5 +32,6 @@ class ActionDispatch::IntegrationTest
         password: 'password'
       }
     }
+    user
   end
 end

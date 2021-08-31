@@ -3,12 +3,12 @@
 require 'test_helper'
 
 class Web::UsersControllerTest < ActionDispatch::IntegrationTest
-  test 'should get new' do
+  test '#new' do
     get new_user_path
     assert_response :success
   end
 
-  test 'should create user' do
+  test '#create' do
     user_attrs = {
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
@@ -26,7 +26,7 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
     assert { user.present? }
   end
 
-  test 'should destroy user' do
+  test '#destroy' do
     user = users(:one)
 
     assert_difference('User.count', -1) do

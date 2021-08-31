@@ -1,6 +1,6 @@
 h1.mb-4= t('.heading')
 
-= simple_form_for @user, method: :patch, url: user_path do |f|
+= simple_form_for @user do |f|
   = f.input :email
   = f.input :first_name
   = f.input :last_name

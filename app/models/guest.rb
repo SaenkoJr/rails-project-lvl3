@@ -12,4 +12,8 @@ class Guest
   def authenticate
     false
   end
+
+  def full_name
+    'Guest'
+  end
 end

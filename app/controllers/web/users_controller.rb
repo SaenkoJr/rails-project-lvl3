@@ -16,7 +16,7 @@ class Web::UsersController < Web::ApplicationController
 
     if @user.save
       sign_in(@user)
-      redirect_to user_path
+      redirect_to @user
     else
       render :edit
     end
@@ -24,21 +24,22 @@ class Web::UsersController < Web::ApplicationController
 
   def update
     if @user.update user_params
-      redirect_to user_path
+      redirect_to @user
     else
       render :edit
     end
   end
 
   def destroy
-    @user.destroy
+    user = User.find(params[:id])
+    user.destroy
     redirect_to root_path
   end
 
   private
 
   def set_user
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   def user_params
