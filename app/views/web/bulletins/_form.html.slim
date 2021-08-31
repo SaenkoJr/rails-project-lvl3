@@ -1,0 +1,9 @@
+= simple_form_for(@bulletin) do |f|
+  = f.input :name
+  = f.input :description, input_html: { rows: 10 }
+  = f.association :category, prompt: :translate, input_html: { class: 'form-select' }
+  = f.input :photo, as: :file
+  - if @bulletin.photo_attachment
+    = image_tag @bulletin.photo.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail mt-2'
+  hr
+  = f.button :submit, class: 'btn btn-outline-secondary mt-4'

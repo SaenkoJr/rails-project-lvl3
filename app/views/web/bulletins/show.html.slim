@@ -1,0 +1,13 @@
+h1= @bulletin.name
+p Description: #{@bulletin.description}
+p Category: #{@bulletin.category.name}
+p Author: #{@bulletin.author.full_name}
+p Photo:
+- if @bulletin.photo_attachment
+  = image_tag(@bulletin.photo, class: 'img-thumbnail')
+
+hr
+
+p= link_to 'Edit', edit_bulletin_path(@bulletin)
+p= link_to 'Delete', bulletin_path(@bulletin), method: :delete, data: { confirm: 'Are you sure ?' }
+p= link_to t('back'), root_path, class: 'btn btn-outline-primary'

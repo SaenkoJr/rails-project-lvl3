@@ -1,0 +1,18 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: <%= Faker::Lorem.sentence(word_count: 4) %>
+  description: <%= Faker::Lorem.paragraph(sentence_count: 3) %>
+  author: one
+  category: one
+
+two:
+  name: <%= Faker::Lorem.sentence(word_count: 4) %>
+  description: <%= Faker::Lorem.paragraph(sentence_count: 3) %>
+  author: one
+  category: :two
+
+without_description:
+  name: <%= Faker::Lorem.sentence(word_count: 4) %>
+  author: one
+  category: :three
