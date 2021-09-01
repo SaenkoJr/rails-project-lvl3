@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Web::Admin::BulletinsController < ApplicationController
+class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   before_action :set_bulletin, only: %i[edit update destroy]
 
   def index
