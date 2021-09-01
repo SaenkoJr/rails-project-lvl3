@@ -4,6 +4,8 @@ p= @user.email
 p= @user.first_name
 p= @user.last_name
 
-= link_to t('.update_profile'), edit_user_path
-br
-= link_to t('.update_password'), edit_password_path
+- if policy(@user).edit?
+  = link_to t('.update_profile'), edit_user_path
+  br
+- if policy(:password).edit?
+  = link_to t('.update_password'), edit_password_path

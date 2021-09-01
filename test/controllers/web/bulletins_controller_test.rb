@@ -7,9 +7,16 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     @bulletin = bulletins(:one)
   end
 
-  test '#new' do
+  test '#new (signed in user)' do
+    sign_in_as(:one)
     get new_bulletin_path
     assert_response :success
+  end
+
+  test '#new (guest must be redirected to root path)' do
+    get new_bulletin_path
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 
   test '#show' do
@@ -17,9 +24,16 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test '#edit' do
+  test '#edit (signed in user)' do
+    sign_in_as(:one)
     get edit_bulletin_path @bulletin
     assert_response :success
+  end
+
+  test '#edit (guest must be redirected to root path)' do
+    get edit_bulletin_path @bulletin
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 
   test '#create (signed in user)' do
@@ -45,7 +59,25 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_equal bulletin.author, user
   end
 
-  test '#update (signed in user)' do
+  test '#create (guest must be redirected to root path)' do
+    category = categories(:one)
+
+    bulletin_attrs = {
+      name: Faker::Lorem.sentence(word_count: 2),
+      descrtiption: Faker::Lorem.sentence(word_count: 5),
+      photo: fixture_file_upload('image1.jpeg', 'image/jpeg'),
+      category_id: category.id
+    }
+
+    post bulletins_path, params: {
+      bulletin: bulletin_attrs
+    }
+
+    assert_response :redirect
+    assert_redirected_to root_path
+  end
+
+  test '#update (only author can update)' do
     sign_in_as(:one)
 
     new_category = categories(:two)
@@ -62,9 +94,28 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @bulletin.category, new_category
   end
 
-  test '#destroy (signed in user)' do
+  test '#update (guest must be redirected to root path)' do
+    bulletin_attrs = {
+      name: Faker::Lorem.sentence(word_count: 2)
+    }
+
+    patch bulletin_path @bulletin, params: { bulletin: bulletin_attrs }
+
+    assert_response :redirect
+    assert_redirected_to root_path
+  end
+
+  test '#destroy (only author can delete)' do
+    sign_in_as :one
     assert_difference('Bulletin.count', -1) do
       delete bulletin_path @bulletin
     end
+  end
+
+  test '#destroy (guest must be redirected to root path)' do
+    delete bulletin_path @bulletin
+
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 end

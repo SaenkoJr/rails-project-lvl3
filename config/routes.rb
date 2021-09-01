@@ -10,7 +10,14 @@ Rails.application.routes.draw do
     resource :session, only: %i[new create destroy]
 
     resources :users
-    resources :bulletins
     resource :password, only: %i[edit update]
+    resources :bulletins
+
+    namespace :admin do
+      root 'home#index'
+      resources :users, only: %i[edit update destroy]
+      resources :categories, except: :show
+      resources :bulletins, only: %i[index edit update destroy]
+    end
   end
 end

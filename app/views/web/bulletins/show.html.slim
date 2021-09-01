@@ -8,6 +8,9 @@ p Photo:
 
 hr
 
-p= link_to 'Edit', edit_bulletin_path(@bulletin)
-p= link_to 'Delete', bulletin_path(@bulletin), method: :delete, data: { confirm: 'Are you sure ?' }
+- if policy(@bulletin).edit?
+  p= link_to 'Edit', edit_bulletin_path(@bulletin)
+- if policy(@bulletin).destroy?
+  p= link_to 'Delete', bulletin_path(@bulletin), method: :delete, data: { confirm: 'Are you sure ?' }
+
 p= link_to t('back'), root_path, class: 'btn btn-outline-primary'

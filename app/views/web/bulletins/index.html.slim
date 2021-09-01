@@ -1,5 +1,7 @@
-= link_to 'Create bulletin', new_bulletin_path
-hr
+- if policy(Bulletin).new?
+  = link_to 'Create bulletin', new_bulletin_path
+  hr
+
 - @bulletins.each do |bulletin|
   div
     p= bulletin.name

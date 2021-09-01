@@ -3,12 +3,13 @@
 require 'test_helper'
 
 class Web::PasswordsControllerTest < ActionDispatch::IntegrationTest
-  test 'should get edit page' do
+  test '#edit' do
+    sign_in_as :one
     get edit_password_path
     assert_response :success
   end
 
-  test 'should update password' do
+  test '#update' do
     user = sign_in_as :one
 
     old_password_digest = user.password_digest

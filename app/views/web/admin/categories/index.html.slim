@@ -1,0 +1,9 @@
+= link_to t('.new'), new_admin_category_path
+hr
+
+- @categories.each do |category|
+  div
+    p= category.name
+    p= link_to t('.edit'), edit_admin_category_path(category)
+    p= link_to t('.delete'), admin_category_path(category), method: :delete, data: { confirm: t('destroy_confirmation') }
+    hr

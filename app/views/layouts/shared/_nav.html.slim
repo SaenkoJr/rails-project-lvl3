@@ -4,6 +4,13 @@
       span.fs-4= t(:title)
     ul.nav
       - if signed_in?
+        - if current_user.admin?
+          li
+            = link_to t('.admin'), admin_root_path, class: 'nav-link link-dark'
+          li
+            = link_to t('.categories'), admin_categories_path, class: 'nav-link link-dark'
+          li
+            = link_to t('.bulletins'), admin_bulletins_path, class: 'nav-link link-dark'
         li
           = link_to t('.profile'), user_path(current_user), class: 'nav-link link-dark'
         li

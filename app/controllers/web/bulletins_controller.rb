@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-class Web::BulletinsController < ApplicationController
+class Web::BulletinsController < Web::ApplicationController
   before_action :set_bulletin, only: %i[show edit update destroy]
+
+  after_action :verify_authorized, except: %i[index show]
 
   def index
     @bulletins = Bulletin.includes(:author).order(created_at: :desc)
@@ -9,13 +11,19 @@ class Web::BulletinsController < ApplicationController
 
   def new
     @bulletin = Bulletin.new
+
+    authorize @bulletin
   end
 
   def show; end
 
-  def edit; end
+  def edit
+    authorize @bulletin
+  end
 
   def create
+    authorize Bulletin
+
     @bulletin = current_user.bulletins.build bulletin_params
 
     if @bulletin.save
@@ -26,6 +34,8 @@ class Web::BulletinsController < ApplicationController
   end
 
   def update
+    authorize @bulletin
+
     if @bulletin.update bulletin_params
       redirect_to @bulletin
     else
@@ -34,6 +44,8 @@ class Web::BulletinsController < ApplicationController
   end
 
   def destroy
+    authorize @bulletin
+
     @bulletin.destroy
 
     redirect_to root_path

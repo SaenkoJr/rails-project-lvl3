@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class Web::PasswordsController < Web::ApplicationController
+  after_action :verify_authorized
+
   def edit
+    authorize :password, :edit?
     @form = User::PasswordForm.new user: current_user
   end
 
   def update
+    authorize :password, :update?
     @form = User::PasswordForm.new(password_params, user: current_user)
 
     if @form.update

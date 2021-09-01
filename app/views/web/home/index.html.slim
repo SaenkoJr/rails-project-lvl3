@@ -1,2 +1,12 @@
-h1 Welcome
-p Hello from heroku
+- if policy(Bulletin).new?
+  = link_to 'Create bulletin', new_bulletin_path
+  hr
+
+- @bulletins.each do |bulletin|
+  div
+    p= bulletin.name
+    p= bulletin.description
+    p= bulletin.category.name
+    p= bulletin.author.full_name
+    p= link_to 'Show', bulletin_path(bulletin)
+  hr

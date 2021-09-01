@@ -3,13 +3,19 @@
 class Web::UsersController < Web::ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
+  after_action :verify_authorized, except: %i[new create]
+
   def new
     @user = User.new
   end
 
-  def show; end
+  def show
+    authorize @user
+  end
 
-  def edit; end
+  def edit
+    authorize @user
+  end
 
   def create
     @user = User.new user_params
@@ -23,6 +29,8 @@ class Web::UsersController < Web::ApplicationController
   end
 
   def update
+    authorize @user
+
     if @user.update user_params
       redirect_to @user
     else
@@ -31,6 +39,8 @@ class Web::UsersController < Web::ApplicationController
   end
 
   def destroy
+    authorize User
+
     user = User.find(params[:id])
     user.destroy
     redirect_to root_path
