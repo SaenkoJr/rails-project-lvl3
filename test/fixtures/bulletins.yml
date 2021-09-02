@@ -5,14 +5,17 @@ one:
   description: <%= Faker::Lorem.paragraph(sentence_count: 3) %>
   author: one
   category: one
+  status: draft
 
 two:
   name: <%= Faker::Lorem.sentence(word_count: 4) %>
   description: <%= Faker::Lorem.paragraph(sentence_count: 3) %>
   author: one
-  category: :two
+  category: two
+  status: published
 
 without_description:
   name: <%= Faker::Lorem.sentence(word_count: 4) %>
   author: one
-  category: :three
+  category: three
+  status: on_moderate

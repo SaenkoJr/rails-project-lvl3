@@ -40,23 +40,45 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     user = sign_in_as(:one)
     category = categories(:one)
 
-    bulletin_attrs = {
-      name: Faker::Lorem.sentence(word_count: 2),
-      descrtiption: Faker::Lorem.sentence(word_count: 5),
-      photo: fixture_file_upload('image1.jpeg', 'image/jpeg'),
-      category_id: category.id
+    params = {
+      moderate: true,
+      bulletin: {
+        name: Faker::Lorem.sentence(word_count: 2),
+        descrtiption: Faker::Lorem.sentence(word_count: 5),
+        photo: fixture_file_upload('image1.jpeg', 'image/jpeg'),
+        category_id: category.id
+      }
     }
 
     assert_difference('Bulletin.count', +1) do
-      post bulletins_path, params: {
-        bulletin: bulletin_attrs
-      }
+      post bulletins_path, params: params
     end
 
     bulletin = Bulletin.last
-    assert_equal bulletin.name, bulletin_attrs[:name]
+    assert_equal bulletin.name, params[:bulletin][:name]
     assert_equal bulletin.category, category
     assert_equal bulletin.author, user
+    assert bulletin.on_moderate?
+  end
+
+  test '#create (save as draft)' do
+    sign_in_as(:one)
+    category = categories(:one)
+
+    params = {
+      bulletin: {
+        name: Faker::Lorem.sentence(word_count: 2),
+        category_id: category.id
+      }
+    }
+
+    assert_difference('Bulletin.count', +1) do
+      post bulletins_path, params: params
+    end
+
+    bulletin = Bulletin.last
+    assert_equal bulletin.name, params[:bulletin][:name]
+    assert bulletin.draft?
   end
 
   test '#create (guest must be redirected to root path)' do
@@ -81,17 +103,21 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(:one)
 
     new_category = categories(:two)
-    bulletin_attrs = {
-      name: Faker::Lorem.sentence(word_count: 2),
-      descrtiption: Faker::Lorem.sentence(word_count: 5),
-      category_id: new_category.id
+    params = {
+      moderate: true,
+      bulletin: {
+        name: Faker::Lorem.sentence(word_count: 2),
+        descrtiption: Faker::Lorem.sentence(word_count: 5),
+        category_id: new_category.id
+      }
     }
 
-    patch bulletin_path @bulletin, params: { bulletin: bulletin_attrs }
+    patch bulletin_path @bulletin, params: params
 
     @bulletin.reload
-    assert_equal @bulletin.name, bulletin_attrs[:name]
+    assert_equal @bulletin.name, params[:bulletin][:name]
     assert_equal @bulletin.category, new_category
+    assert @bulletin.on_moderate?
   end
 
   test '#update (guest must be redirected to root path)' do

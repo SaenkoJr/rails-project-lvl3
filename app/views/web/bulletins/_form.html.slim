@@ -6,4 +6,6 @@
   - if @bulletin.photo_attachment
     = image_tag @bulletin.photo.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail mt-2'
   hr
-  = f.button :submit, class: 'btn btn-outline-secondary mt-4'
+  .mt-2
+    = f.button :submit, t('.moderate'), name: 'on_moderation', class: 'btn btn-outline-secondary me-3'
+    = f.button :submit, t('.hide'), name: 'hide', class: 'btn btn-outline-secondary'

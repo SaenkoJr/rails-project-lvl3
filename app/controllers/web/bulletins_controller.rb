@@ -25,6 +25,7 @@ class Web::BulletinsController < Web::ApplicationController
     authorize Bulletin
 
     @bulletin = current_user.bulletins.build bulletin_params
+    change_status(@bulletin)
 
     if @bulletin.save
       redirect_to @bulletin
@@ -36,6 +37,7 @@ class Web::BulletinsController < Web::ApplicationController
   def update
     authorize @bulletin
 
+    change_status(@bulletin)
     if @bulletin.update bulletin_params
       redirect_to @bulletin
     else
@@ -48,10 +50,15 @@ class Web::BulletinsController < Web::ApplicationController
 
     @bulletin.destroy
 
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 
   private
+
+  def change_status(bulletin)
+    bulletin.moderate if params[:moderate]
+    bulletin.hide if params[:hide]
+  end
 
   def bulletin_params
     params.require(:bulletin).permit(:name, :description, :category_id, :photo)

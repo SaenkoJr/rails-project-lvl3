@@ -11,6 +11,7 @@ class Web::UsersController < Web::ApplicationController
 
   def show
     authorize @user
+    @bulletins = @user.bulletins.includes(:category)
   end
 
   def edit

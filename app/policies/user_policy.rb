@@ -2,22 +2,28 @@
 
 class UserPolicy < ApplicationPolicy
   def show?
-    !user.guest?
+    owner_or_admin?
   end
 
   def create?
-    !user.guest?
+    true
   end
 
   def edit?
-    !user.guest?
+    owner_or_admin?
   end
 
   def update?
-    !user.guest?
+    owner_or_admin?
   end
 
   def destroy?
-    !user.guest?
+    user.admin?
+  end
+
+  private
+
+  def owner_or_admin?
+    record.user_id == user&.id || user.admin?
   end
 end

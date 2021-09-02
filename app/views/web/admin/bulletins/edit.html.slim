@@ -1,4 +1,9 @@
 = simple_form_for @bulletin, url: admin_bulletin_path do |f|
+  = f.input :status_event,
+            prompt: :translate,
+            collection: @bulletin.aasm(:status).events(permitted: true),
+            input_html: { class: 'form-select' }
+  span.badge.bg-info.text-dark.mb-2 #{t('.current_status')}: #{@bulletin.aasm(:status).human_state}
   = f.input :name
   = f.input :description, input_html: { rows: 10 }
   = f.association :category, prompt: :translate, input_html: { class: 'form-select' }

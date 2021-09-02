@@ -30,6 +30,6 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   end
 
   def bulletin_params
-    params.require(:bulletin).permit(:name, :description, :category_id, :photo)
+    params.require(:bulletin).permit(:name, :description, :category_id, :photo, :status_event)
   end
 end

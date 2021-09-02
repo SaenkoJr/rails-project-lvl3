@@ -88,4 +88,13 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to root_path
   end
+
+  test 'publish from moderation' do
+    sign_in_as :admin
+    bulletin = bulletins(:without_description)
+
+    params = { bulletin: { status_event: :publish } }
+    patch admin_bulletin_path(bulletin), params: params
+    assert bulletin.reload.published?
+  end
 end

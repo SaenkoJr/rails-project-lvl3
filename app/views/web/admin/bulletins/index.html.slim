@@ -4,6 +4,7 @@
     p= bulletin.description
     p= bulletin.category.name
     p= bulletin.author.full_name
+    p= bulletin.status
     p= link_to t('.edit'), edit_admin_bulletin_path(bulletin)
     p= link_to t('.delete'), admin_bulletin_path(bulletin), method: :delete, data: { confirm: t('destroy_confirmation') }
     hr

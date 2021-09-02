@@ -9,7 +9,10 @@ p Photo:
 hr
 
 - if policy(@bulletin).edit?
-  p= link_to 'Edit', edit_bulletin_path(@bulletin)
+  - if current_user.admin?
+    p= link_to 'Edit', edit_admin_bulletin_path(@bulletin)
+  - else
+    p= link_to 'Edit', edit_bulletin_path(@bulletin)
 - if policy(@bulletin).destroy?
   p= link_to 'Delete', bulletin_path(@bulletin), method: :delete, data: { confirm: 'Are you sure ?' }
 
