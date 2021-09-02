@@ -2,8 +2,11 @@
 
 class Web::HomeController < Web::ApplicationController
   def index
-    @bulletins = Bulletin.includes(:author)
-                         .published
-                         .order(created_at: :desc)
+    @q = Bulletin.published.ransack(ransack_params)
+    @bulletins = @q.result
+                   .includes(%i[author category])
+                   .page(page)
+                   .per(per_page)
+    @categories = Category.all
   end
 end

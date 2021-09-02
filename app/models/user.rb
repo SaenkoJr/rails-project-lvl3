@@ -7,6 +7,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, length: { minimum: 8 }, allow_nil: true
 
+  ransack_alias :name, :first_name_or_last_name
+
   def full_name
     "#{first_name} #{last_name}"
   end

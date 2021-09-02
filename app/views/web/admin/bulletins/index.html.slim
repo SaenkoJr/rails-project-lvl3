@@ -1,3 +1,24 @@
+h1= t('.heading')
+
+hr
+
+= search_form_for @q, url: admin_bulletins_path do |f|
+  = f.input :author_cont, label: t('.author')
+  = f.input :category_name_cont,
+            collection: @categories,
+            value_method: :name,
+            label: t('.category'),
+            input_html: { class: 'form-select' }
+  = f.input :status_cont,
+            collection: Bulletin.aasm(:status).states.map(&:name),
+            label: t('.status'),
+            input_html: { class: 'form-select' }
+  = sort_link(@q, :created_at)
+  = f.button :submit
+  = link_to t('reset'), url_for
+
+hr
+
 - @bulletins.each do |bulletin|
   div
     p= bulletin.name

@@ -6,7 +6,12 @@ class Web::BulletinsController < Web::ApplicationController
   after_action :verify_authorized, except: %i[index show]
 
   def index
-    @bulletins = Bulletin.includes(:author).order(created_at: :desc)
+    @q = Bulletin.published.ransack(ransack_params)
+    @bulletins = @q.result
+                   .includes(%i[author category])
+                   .page(page)
+                   .per(per_page)
+    @categories = Category.all
   end
 
   def new

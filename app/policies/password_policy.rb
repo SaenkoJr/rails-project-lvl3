@@ -2,16 +2,16 @@
 
 class PasswordPolicy < ApplicationPolicy
   def edit?
-    owner_or_admin?
+    non_guest_or_admin?
   end
 
   def update?
-    owner_or_admin?
+    non_guest_or_admin?
   end
 
   private
 
-  def owner_or_admin?
-    record.user_id == user&.id || user.admin?
+  def non_guest_or_admin?
+    !user.guest? || user.admin?
   end
 end

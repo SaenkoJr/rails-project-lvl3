@@ -4,7 +4,11 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   before_action :set_bulletin, only: %i[edit update destroy]
 
   def index
-    @bulletins = Bulletin.all
+    @q = Bulletin.ransack(ransack_params)
+    @bulletins = @q.result
+                   .includes(%i[author category])
+                   .page(page)
+                   .per(per_page)
   end
 
   def edit; end

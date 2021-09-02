@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   scope module: :web do
-    root 'home#index'
+    root 'bulletins#index'
 
     post 'auth/:provider', to: 'sessions#request', as: :auth_request
     get 'auth/:provider/callback', to: 'sessions#callback', as: :auth_callback

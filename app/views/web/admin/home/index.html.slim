@@ -1,3 +1,19 @@
+h1= t('.heading')
+
+hr
+
+= search_form_for @q, url: admin_root_path do |f|
+  = f.input :email_cont, label: t('.email')
+  = f.input :name_cont, label: t('.name')
+  = sort_link @q, :id
+  = sort_link @q, :email
+  = sort_link @q, :admin
+  = sort_link @q, :created_at
+  = f.button :submit
+  = link_to t('reset'), url_for
+
+hr
+
 - @users.each do |user|
   div
     p= user.email
