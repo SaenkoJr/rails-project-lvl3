@@ -10,7 +10,7 @@ class User < ApplicationRecord
   ransack_alias :name, :first_name_or_last_name
 
   def full_name
-    "#{first_name} #{last_name}"
+    "#{first_name} #{last_name}".strip
   end
 
   def guest?

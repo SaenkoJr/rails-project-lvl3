@@ -12,6 +12,27 @@
  *
  *= require_tree .
  *= require_self
- */
+*/
 
 @import "bootstrap/scss/bootstrap";
+
+.draft {
+  background-color: $white;
+  color: $gray-900;
+}
+
+.on_moderate {
+  background-color: $teal;
+}
+
+.published {
+  background-color: $green;
+}
+
+.refected {
+  background-color: $red;
+}
+
+.archived {
+  background-color: $gray-600;
+}

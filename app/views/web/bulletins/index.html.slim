@@ -1,25 +1,7 @@
-- if policy(Bulletin).new?
-  = link_to 'Create bulletin', new_bulletin_path
-  hr
-
-= search_form_for @q do |f|
-  = f.input :author_cont, label: t('.author')
-  = f.input :category_name_cont,
-            collection: @categories,
-            value_method: :name,
-            label: t('.category'),
-            input_html: { class: 'form-select' }
-  = sort_link(@q, :created_at)
-  = f.button :submit
-  = link_to t('reset'), url_for
+= render "search_form"
 
 hr
-- @bulletins.each do |bulletin|
-  div
-    p= bulletin.name
-    p= bulletin.description
-    p= bulletin.category.name
-    p= bulletin.author.full_name
-    p= bulletin.status
-    p= link_to 'Show', bulletin_path(bulletin)
-  hr
+.row.row-cols-1.g-4
+  = render @bulletins
+
+  = paginate @bulletins

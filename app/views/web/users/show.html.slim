@@ -1,23 +1,61 @@
-h1= t('.heading')
+h1.mb-4= t('.heading')
 
 .row
-  .col-sm-6
-    p= @user.email
-    p= @user.first_name
-    p= @user.last_name
-  .col-sm-6
-    - @bulletins.each do |bulletin|
-      div
-        p= bulletin.name
-        p= bulletin.description
-        p= bulletin.category.name
-        p= bulletin.status
-        p= link_to t('edit'), edit_bulletin_path(bulletin)
-        p= link_to t('delete'), bulletin_path(bulletin), method: :delete, data: { confirm: t('destroy_confirmation') }
-        hr
+  .col-sm-4
+    dl.row
+      dt.col-sm-4.mb-2= t('.email')
+      dd.col-sm-8.mb-2= @user.email
 
-- if policy(@user).edit?
-  = link_to t('.update_profile'), edit_user_path
-  br
-- if policy(:password).edit?
-  = link_to t('.update_password'), edit_password_path
+      dt.col-sm-4.mb-2= t('.first_name')
+      dd.col-sm-8.mb-2= @user.first_name
+
+      dt.col-sm-4.mb-2= t('.last_name')
+      dd.col-sm-8.mb-2= @user.last_name
+
+    - if policy(@user).edit?
+      = link_to t('.update_profile'), edit_user_path
+      br
+    - if policy(:password).edit?
+      = link_to t('.update_password'), edit_password_path
+
+  .col-sm-8
+    h5= t('.my_bulletins')
+    hr
+    = search_form_for @q, html: { class: 'row row-cols-4' }, url: user_path(@user) do |f|
+      = f.input :name_cont, label: t('.name')
+      = f.input :status_cont,
+                label: t('.status'),
+                collection: @statuses,
+                input_html: { class: 'form-select form-control-sm' }
+      = f.input :category_name_cont,
+                collection: @categories,
+                value_method: :name,
+                label: t('.category'),
+                input_html: { class: 'form-select form-control-sm' }
+      .col-auto.d-flex.mb-3
+        .mt-auto
+          = f.button :submit, class: 'btn btn-outline-secondary me-3'
+          = link_to t('reset'), url_for, class: 'btn btn-secondary me-3'
+
+    table.table
+      thead
+        tr.d-flex
+          th.col-4= sort_link(@q, 'name')
+          th.col-3= sort_link(@q, 'category')
+          th.col-2= sort_link(@q, 'status')
+          th.col-3= sort_link(@q, 'created_at')
+      tbody
+        - @bulletins.each do |bulletin|
+          tr.d-flex
+            td.col-4
+              .text-truncate= link_to bulletin.name, bulletin_path(bulletin)
+            td.col-3
+              .text-truncate= bulletin.category.name
+            td.col-2
+              = render partial: 'web/shared/status_badge', locals: { status: bulletin.aasm(:status) }
+            td.col-3= bulletin.created_at
+      tfoot
+        tr
+          td colspan=4
+            = paginate @bulletins
+

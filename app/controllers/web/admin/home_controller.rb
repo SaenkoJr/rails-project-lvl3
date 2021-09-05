@@ -2,7 +2,7 @@
 
 class Web::Admin::HomeController < Web::Admin::ApplicationController
   def index
-    @q = User.ransack(ransack_params.merge({ s: 'email ASC' }))
+    @q = User.ransack(ransack_params)
     @users = @q.result
                .page(page)
                .per(per_page)

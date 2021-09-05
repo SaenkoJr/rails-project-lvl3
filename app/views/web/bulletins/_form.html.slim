@@ -4,8 +4,8 @@
   = f.association :category, prompt: :translate, input_html: { class: 'form-select' }
   = f.input :photo, as: :file
   - if @bulletin.photo_attachment
-    = image_tag @bulletin.photo.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail mt-2'
-  hr
+    = image_tag @bulletin.photo.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail img-fluid mt-2'
   .mt-2
-    = f.button :submit, t('.moderate'), name: 'on_moderation', class: 'btn btn-outline-secondary me-3'
-    = f.button :submit, t('.hide'), name: 'hide', class: 'btn btn-outline-secondary'
+    = f.button :submit, t('.moderate'), name: 'on_moderation', class: 'btn-outline-primary me-3'
+    = f.button :submit, t('.hide'), name: 'hide', class: 'btn-outline-secondary me-3'
+    = link_to t('back'), :back, class: 'btn btn-outline-secondary'

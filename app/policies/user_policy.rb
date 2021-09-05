@@ -24,6 +24,6 @@ class UserPolicy < ApplicationPolicy
   private
 
   def owner_or_admin?
-    record.id == user&.id || user.admin?
+    record.id == user.id || user.admin?
   end
 end

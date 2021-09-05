@@ -1,0 +1,15 @@
+= search_form_for @q, html: { class: 'row row-cols-4' } do |f|
+  = f.input :author_cont, label: t('.author')
+  = f.input :category_name_cont,
+            collection: @categories,
+            value_method: :name,
+            label: t('.category'),
+            input_html: { class: 'form-select form-control-sm' }
+  .col-auto.d-flex.mb-3
+    .mt-auto
+      = f.button :submit, class: 'btn btn-outline-secondary me-3'
+      = link_to t('reset'), url_for, class: 'btn btn-secondary me-3'
+.d-flex.align-items-center
+  span Sort by:
+  ul.list-group.list-group-horizontal
+    li.list-group-item.border-0= sort_link(@q, :created_at, {}, { class: 'text-decoration-none text-secondary' } )

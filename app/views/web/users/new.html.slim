@@ -1,7 +1,11 @@
-= simple_form_for @user do |f|
-  = f.input :email
-  = f.input :first_name
-  = f.input :last_name
-  = f.input :password
-  = f.input :password_confirmation
-  = f.button :submit
+.row.gx-4.gx-lg-5.justify-content-center
+  .col-sm-9
+    h2.mb-4= t('.heading')
+
+    = simple_form_for @user do |f|
+      = f.input :email
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :password
+      = f.input :password_confirmation
+      = f.button :submit, class: 'btn btn-outline-secondary mb-3'

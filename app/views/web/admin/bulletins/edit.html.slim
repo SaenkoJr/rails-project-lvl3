@@ -1,3 +1,6 @@
+h2.mb-2= t('.heading')
+
+hr
 = simple_form_for @bulletin, url: admin_bulletin_path do |f|
   = f.input :status_event,
             prompt: :translate,
@@ -11,4 +14,4 @@
   - if @bulletin.photo_attachment
     = image_tag @bulletin.photo.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail mt-2'
   hr
-  = f.button :submit, class: 'btn btn-outline-secondary mt-4'
+  = f.button :submit, class: 'btn btn-outline-secondary'

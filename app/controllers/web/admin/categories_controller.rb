@@ -4,7 +4,7 @@ class Web::Admin::CategoriesController < Web::Admin::ApplicationController
   before_action :set_category, only: %i[edit update destroy]
 
   def index
-    @q = Category.ransack(ransack_params.merge({ s: 'name ASC' }))
+    @q = Category.ransack(ransack_params)
     @categories = @q.result
                     .page(page)
                     .per(per_page)

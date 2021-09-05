@@ -11,7 +11,13 @@ class Web::UsersController < Web::ApplicationController
 
   def show
     authorize @user
-    @bulletins = @user.bulletins.includes(:category)
+    @q = @user.bulletins.ransack(ransack_params)
+    @bulletins = @q.result
+                   .includes(:category)
+                   .page(page)
+                   .per(per_page)
+    @categories = Category.all
+    @statuses = Bulletin.aasm(:status).states.map(&:human_name)
   end
 
   def edit

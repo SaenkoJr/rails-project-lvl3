@@ -1,19 +1,34 @@
-h1= @bulletin.name
-p Description: #{@bulletin.description}
-p Category: #{@bulletin.category.name}
-p Author: #{@bulletin.author.full_name}
-p Photo:
-- if @bulletin.photo_attachment
-  = image_tag(@bulletin.photo, class: 'img-thumbnail')
+.row.gx-4.gx-lg-5.justify-content-center
+  .col-sm-10
+    .row.gx-4
+      .col-8
+        h2.mb-4= @bulletin.name
+        dl.row
+          dt.col-sm-3.mb-4 #{t('.description')}:
+          dd.col-sm-9.mb-4= @bulletin.description
 
-hr
+          dt.col-sm-3.mb-4 #{t('.category')}:
+          dd.col-sm-9.mb-4= @bulletin.category.name
 
-- if policy(@bulletin).edit?
-  - if current_user.admin?
-    p= link_to 'Edit', edit_admin_bulletin_path(@bulletin)
-  - else
-    p= link_to 'Edit', edit_bulletin_path(@bulletin)
-- if policy(@bulletin).destroy?
-  p= link_to 'Delete', bulletin_path(@bulletin), method: :delete, data: { confirm: 'Are you sure ?' }
+          dt.col-sm-3.mb-4 #{t('.author')}:
+          dd.col-sm-9.mb-4= @bulletin.author.full_name.empty? ? @bulletin.author.email : @bulletin.author.full_name
 
-p= link_to t('back'), root_path, class: 'btn btn-outline-primary'
+          dt.col-sm-3.mb-4 #{t('.created_at')}:
+          dd.col-sm-9.mb-4= @bulletin.created_at
+      .col-4
+        - if @bulletin.photo_attachment
+          = image_tag(@bulletin.photo, class: 'img-thumbnail img-fluid')
+
+      hr
+
+    - if current_user.admin?
+      = link_to 'Edit', edit_admin_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
+    - elsif policy(@bulletin).edit?
+      = link_to 'Edit', edit_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
+    - if policy(@bulletin).destroy?
+      = link_to 'Delete', bulletin_path(@bulletin),
+                          method: :delete,
+                          data: { confirm: 'Are you sure ?' },
+                          class: 'btn btn-sm btn-outline-danger me-2'
+
+    = link_to t('back'), :back, class: 'btn btn-sm btn-outline-secondary'

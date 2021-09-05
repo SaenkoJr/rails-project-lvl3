@@ -9,6 +9,8 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
                    .includes(%i[author category])
                    .page(page)
                    .per(per_page)
+    @categories = Category.all
+    @statuses = Bulletin.aasm(:status).states.map(&:human_name)
   end
 
   def edit; end

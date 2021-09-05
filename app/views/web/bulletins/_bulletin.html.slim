@@ -1,0 +1,27 @@
+.col-lg-6
+  .card.h-100.bulletin
+    = link_to bulletin_path(bulletin), class: 'text-decoration-none link-secondary h-100'
+      .row.h-100
+        .col-md-4.h-100
+          - if bulletin.photo_attachment
+            = image_tag(bulletin.photo, class: 'img-fluid rounded-start')
+          - else
+            .no-img.bg-secondary
+              i.bi.bi-card-image.text-light
+        .col-md-8
+          .card-body.d-flex.flex-column.justify-content-between.h-100
+            h5.card-title= bulletin.name
+              / = link_to bulletin.name, bulletin_path(bulletin), class: 'link-secondary'
+            small.text-info= bulletin.category.name
+            hr
+            p.card-text.text-truncate.flex-grow-1= bulletin.description
+            p.card-text
+              hr
+              small.text-muted
+                |
+                  Author: 
+                - if bulletin.author.full_name.empty?
+                  = bulletin.author.email
+                - else
+                  = bulletin.author.full_name
+              small.text-muted Created at: #{bulletin.created_at}

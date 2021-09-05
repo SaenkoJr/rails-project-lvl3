@@ -1,7 +1,9 @@
-h1.mb-4= t('.heading')
+.row.gx-4.gx-lg-5.justify-content-center
+  .col-sm-9
+    h2.mb-4= t('.heading')
 
-= simple_form_for @form, method: :patch, url: password_path do |f|
-  = f.input :old_password
-  = f.input :password, label: t('.new_password')
-  = f.input :password_confirmation
-  = f.button :submit
+    = simple_form_for @form, method: :patch, url: password_path do |f|
+      = f.input :old_password
+      = f.input :password, label: t('.new_password')
+      = f.input :password_confirmation
+      = f.button :submit, class: 'btn-outline-secondary'
