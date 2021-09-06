@@ -1,15 +1,15 @@
 h2= t('.heading')
 
-= link_to t('.new'), new_admin_category_path, class: 'btn btn-primary'
+= link_to t(:new), new_admin_category_path, class: 'btn btn-primary'
 
 hr
 
 = search_form_for @q, url: admin_categories_path, html: { class: 'row row-cols-4' } do |f|
-  = f.input :name_cont, label: t('.name')
+  = f.input :name_cont
   .col-auto.d-flex.mb-3
     .mt-auto
-      = f.button :submit, class: 'btn btn-outline-secondary me-3'
-      = link_to t('reset'), url_for, class: 'btn btn-secondary me-3'
+      = f.button :submit, t(:search), class: 'btn btn-outline-secondary me-3'
+      = link_to t(:reset), url_for, class: 'btn btn-secondary me-3'
 
 hr
 
@@ -24,7 +24,7 @@ table.table
       tr
         td= link_to category.id, edit_admin_category_path(category)
         td= category.name
-        td= category.created_at
+        td= l category.created_at
   tfoot
     tr
       td colspan=3

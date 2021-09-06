@@ -13,7 +13,7 @@ class Bulletin < ApplicationRecord
             size: { less_than_or_equal_to: 5.megabyte },
             content_type: %i[jpeg jpg png]
 
-  ransack_alias :author, :author_first_name_or_author_last_name
+  ransack_alias :author, :author_first_name_or_author_last_name_or_author_email
 
   attribute :status_event, :string
   before_save :set_status

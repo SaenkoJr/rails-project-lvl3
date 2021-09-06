@@ -3,8 +3,8 @@ h2= t('.heading')
 hr
 
 = search_form_for @q, url: admin_root_path, html: { class: 'row row-cols-4' } do |f|
-  = f.input :email_cont, label: t('.email')
-  = f.input :name_cont, label: t('.name')
+  = f.input :email_cont
+  = f.input :name_cont
   .col-auto.d-flex.mb-3
     .mt-auto
       = f.button :submit, class: 'btn btn-outline-secondary me-3'
@@ -29,7 +29,7 @@ table.table
         td= user.first_name
         td= user.last_name
         td= user.admin?
-        td= user.created_at
+        td= l user.created_at
   tfoot
     tr
       td colspan=6

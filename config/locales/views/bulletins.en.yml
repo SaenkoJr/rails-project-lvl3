@@ -1,0 +1,19 @@
+en:
+  web:
+    bulletins:
+      search_form:
+        sort_by: Sort by
+      form:
+        moderate: Send for moderation
+        hide: Save as draft
+      show:
+        description: Description
+        category: Category
+        author: Author
+        created_at: Created at
+      edit:
+        heading: Update bulletin
+      new:
+        heading: Create bulletin
+
+

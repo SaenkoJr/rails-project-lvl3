@@ -1,0 +1,22 @@
+en:
+  web:
+    admin:
+      home:
+        index:
+          heading: Users
+      categories:
+        index:
+          heading: Categories
+        new:
+          heading: Create category
+        edit:
+          heading: Update category
+      bulletins:
+        index:
+          heading: Bulletins
+        edit:
+          heading: Update bulletin
+      users:
+        edit:
+          heading: Update user info
+

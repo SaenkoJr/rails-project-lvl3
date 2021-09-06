@@ -3,21 +3,19 @@ h2= t('.heading')
 hr
 
 = search_form_for @q, url: admin_bulletins_path, html: { class: 'row row-cols-4' } do |f|
-  = f.input :name, label: t('.name')
-  = f.input :author_email_cont, label: t('.author_email')
+  = f.input :name_cont
+  = f.input :author_email_cont
   = f.input :category_name_cont,
             collection: @categories,
             value_method: :name,
-            label: t('.category'),
             input_html: { class: 'form-select' }
   = f.input :status_cont,
             collection: @statuses,
-            label: t('.status'),
             input_html: { class: 'form-select' }
   .col-auto.d-flex.mb-3
     .mt-auto
       = f.button :submit, class: 'btn btn-outline-secondary me-3'
-      = link_to t('reset'), url_for, class: 'btn btn-secondary me-3'
+      = link_to t(:reset), url_for, class: 'btn btn-secondary me-3'
 
 hr
 
@@ -27,7 +25,7 @@ table.table
       th= sort_link(@q, 'id')
       th= sort_link(@q, 'name')
       th= sort_link(@q, 'author_email')
-      th= sort_link(@q, 'category')
+      th= sort_link(@q, 'category_name')
       th= sort_link(@q, 'status')
       th= sort_link(@q, 'created_at')
   tbody
@@ -38,7 +36,7 @@ table.table
         td= link_to bulletin.author.email, edit_admin_user_path(bulletin.author)
         td= bulletin.category.name
         td= render partial: 'web/shared/status_badge', locals: { status: bulletin.aasm(:status) }
-        td= bulletin.created_at
+        td= l bulletin.created_at
   tfoot
     tr
       td colspan=4

@@ -5,4 +5,12 @@ en:
         sign_in: Sign in
         sign_up: Sign up
         sign_out: Log out
+        create_bulletin: Create bulletin
+        admin: Admin panel
         profile: Profile
+    web:
+      admin:
+        application:
+          users: Users
+          categories: Categories
+          bulletins: Bulletins

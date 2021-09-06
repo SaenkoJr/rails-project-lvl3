@@ -3,8 +3,18 @@ en:
     users:
       show:
         heading: Profile
+        email: Email
+        first_name: First name
+        last_name: Last name
+        my_bulletins: My bulletins
+        name: Find by name
+        status: Find by status
+        category: Find by category
         update_profile: Update info
         update_password: Update password
+      new:
+        heading: Registration
+        sign_up: Sign up
       edit:
         heading: Update info
       security:

@@ -1,0 +1,6 @@
+en:
+  web:
+    sessions:
+      new:
+        heading: Sign in
+        sign_in: Sign in
