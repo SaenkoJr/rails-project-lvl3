@@ -19,12 +19,14 @@ table.table
       th= sort_link(@q, 'id')
       th= sort_link(@q, 'name')
       th= sort_link(@q, 'created_at')
+      th
   tbody
     - @categories.each do |category|
       tr
         td= link_to category.id, edit_admin_category_path(category)
         td= category.name
         td= l category.created_at
+        td= link_to t(:destroy), admin_category_path(category), method: :delete, data: { confirm: t(:destory_confirmation) }
   tfoot
     tr
       td colspan=3

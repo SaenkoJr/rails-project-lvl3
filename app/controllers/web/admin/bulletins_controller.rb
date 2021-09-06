@@ -10,16 +10,22 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
                    .page(page)
                    .per(per_page)
     @categories = Category.all
-    @statuses = Bulletin.aasm(:status).states.map(&:human_name)
+    @statuses = Bulletin.aasm(:status)
+                        .states
+                        .map(&:human_name)
   end
 
-  def edit; end
+  def edit
+    @events = @bulletin.aasm(:status)
+                       .events(permitted: true)
+                       .map(&:default_display_name)
+  end
 
   def update
     if @bulletin.update bulletin_params
-      redirect_to admin_bulletins_path
+      redirect_to edit_admin_bulletin_path(@bulletin), notice: t('.success')
     else
-      render :edit
+      render :edit, alert: t('.failed')
     end
   end
 

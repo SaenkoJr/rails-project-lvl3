@@ -25,7 +25,7 @@ class Bulletin < ApplicationRecord
     state :rejected
     state :archived
 
-    event :moderate do
+    event :send_to_moderate do
       transitions from: %i[draft rejected], to: :on_moderate
     end
 
@@ -38,7 +38,7 @@ class Bulletin < ApplicationRecord
     end
 
     event :hide do
-      transitions from: %i[draft published rejected], to: :draft
+      transitions from: %i[draft rejected], to: :draft
     end
 
     event :archive do
@@ -47,6 +47,10 @@ class Bulletin < ApplicationRecord
   end
 
   private
+
+  def admin?
+    current_user.admin?
+  end
 
   def set_status
     aasm(:status).fire(status_event) if status_event.present?

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < Web::ApplicationController
-  before_action :set_bulletin, only: %i[show edit update destroy]
+  before_action :set_bulletin, only: %i[show edit update destroy archive]
 
   after_action :verify_authorized, except: %i[index show]
 
@@ -50,6 +50,17 @@ class Web::BulletinsController < Web::ApplicationController
     end
   end
 
+  def archive
+    authorize @bulletin
+
+    if @bulletin.may_archive?
+      @bulletin.archive!
+      redirect_to @bulletin, notice: t('.success')
+    else
+      redirect_to @bulletin, alert: t('.failed')
+    end
+  end
+
   def destroy
     authorize @bulletin
 
@@ -61,7 +72,7 @@ class Web::BulletinsController < Web::ApplicationController
   private
 
   def change_status(bulletin)
-    bulletin.moderate if params[:moderate]
+    bulletin.send_to_moderate if params[:moderate]
     bulletin.hide if params[:hide]
   end
 

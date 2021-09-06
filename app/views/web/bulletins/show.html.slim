@@ -4,6 +4,10 @@
       .col-8
         h2.mb-4= @bulletin.name
         dl.row
+          - if author_or_admin? @bulletin
+            dt.col-sm-3.mb-4 #{t('.status')}:
+            dd.col-sm-9.mb-4= render partial: 'web/shared/status_badge', locals: { status: @bulletin.aasm(:status) }
+
           dt.col-sm-3.mb-4 #{t('.description')}:
           dd.col-sm-9.mb-4= @bulletin.description
 
@@ -23,12 +27,13 @@
 
     - if current_user.admin?
       = link_to t(:edit), edit_admin_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
-    - elsif policy(@bulletin).edit?
+    - elsif policy(@bulletin).edit? && !@bulletin.archived?
       = link_to t(:edit), edit_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
-    - if policy(@bulletin).destroy?
-      = link_to t(:delete), bulletin_path(@bulletin),
-                          method: :delete,
-                          data: { confirm: t(:destroy_confirmation) },
+
+    - if policy(@bulletin).archive? && @bulletin.may_archive?
+      = link_to t(:archive), archive_bulletin_path(@bulletin),
+                          method: :patch,
+                          data: { confirm: t(:archive_confirmation) },
                           class: 'btn btn-sm btn-outline-danger me-2'
 
     = link_to t(:back), :back, class: 'btn btn-sm btn-outline-secondary'

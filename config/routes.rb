@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
     resources :users
     resource :password, only: %i[edit update]
-    resources :bulletins
+    resources :bulletins do
+      patch :archive, on: :member
+    end
 
     namespace :admin do
       root 'home#index'

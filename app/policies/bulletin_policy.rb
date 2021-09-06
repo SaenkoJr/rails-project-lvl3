@@ -10,7 +10,7 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def edit?
-    author_or_admin?
+    author_or_admin? && !record.archived?
   end
 
   def update?
@@ -18,6 +18,10 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def destroy?
+    author_or_admin?
+  end
+
+  def archive?
     author_or_admin?
   end
 
