@@ -4,7 +4,7 @@ en:
       search_form:
         sort_by: Sort by
       form:
-        moderate: Send for moderation
+        moderate: Send to moderation
         hide: Save as draft
       show:
         description: Description

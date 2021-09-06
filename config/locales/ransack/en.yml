@@ -4,13 +4,13 @@ en:
     reset: Reset
     attributes:
       bulletin:
-        id: Id
+        id: ID
         name: Name
         author_email: Email
         category_name: Category
         status: Status
         created_at: Created at
       category:
-        id: Id
+        id: ID
         name: Name
         created_at: Created at

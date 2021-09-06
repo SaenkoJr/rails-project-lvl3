@@ -38,6 +38,8 @@ en:
   search: Search
   destroy: Delete
   destroy_confirmation: Are you sure?
+  archive: Archive
+  archive_confirmation: Are you sure?
   sign_in: Sign in
   sign_up: Sign up
 
