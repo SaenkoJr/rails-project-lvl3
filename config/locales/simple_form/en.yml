@@ -8,7 +8,7 @@ en:
     labels:
       q:
         name_cont: Find by name
-        email_cont: Find by author
+        email_cont: Find by user email
         author_cont: Find by author
         author_email_cont: Find by email
         category_name_cont: Find by category
@@ -20,25 +20,6 @@ en:
     placeholders:
       q:
         author_cont: Enter first name, last name or email
+        name_cont: Enter first name or last name
     error_notification:
       default_message: "Please review the problems below:"
-
-    # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
-    # include_blanks:
-    #   defaults:
-    #     age: 'Rather not say'
-    # prompts:
-    #   defaults:
-    #     age: 'Select your age'

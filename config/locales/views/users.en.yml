@@ -19,3 +19,7 @@ en:
         heading: Update info
       security:
         heading: Update password
+      update:
+        success: Info was updated
+      destroy:
+        success: User was destroyed

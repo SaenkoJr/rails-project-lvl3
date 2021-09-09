@@ -7,14 +7,15 @@ require 'rails/test_help'
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(
   :github,
-  Faker::Omniauth.github
+  FactoryBot.generate(:github_auth_hash)
 )
 Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
 
 class ActiveSupport::TestCase
+  include FactoryBot::Syntax::Methods
+
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
-
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
@@ -23,15 +24,4 @@ end
 
 class ActionDispatch::IntegrationTest
   include AuthConcern
-
-  def sign_in_as(name)
-    user = users(name)
-    post session_url, params: {
-      user: {
-        email: user.email,
-        password: 'password'
-      }
-    }
-    user
-  end
 end

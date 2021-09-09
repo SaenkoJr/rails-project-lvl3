@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Web::Admin::BulletinsController < Web::Admin::ApplicationController
-  before_action :set_bulletin, only: %i[edit update destroy]
+  before_action :set_bulletin, only: %i[edit update]
 
   def index
     @q = Bulletin.ransack(ransack_params)
@@ -15,11 +15,7 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
                         .map(&:human_name)
   end
 
-  def edit
-    @events = @bulletin.aasm(:status)
-                       .events(permitted: true)
-                       .map(&:default_display_name)
-  end
+  def edit; end
 
   def update
     if @bulletin.update bulletin_params
@@ -27,12 +23,6 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     else
       render :edit, alert: t('.failed')
     end
-  end
-
-  def destroy
-    @bulletin.destroy
-
-    redirect_to admin_bulletins_path
   end
 
   private

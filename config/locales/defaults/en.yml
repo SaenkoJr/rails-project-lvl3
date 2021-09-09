@@ -42,6 +42,7 @@ en:
   archive_confirmation: Are you sure?
   sign_in: Sign in
   sign_up: Sign up
+  not_authorized: You must be logged in to continue
 
   time:
     formats:

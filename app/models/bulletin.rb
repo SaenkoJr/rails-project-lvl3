@@ -3,7 +3,10 @@
 class Bulletin < ApplicationRecord
   include AASM
 
-  belongs_to :author, class_name: 'User', foreign_key: 'user_id', inverse_of: :bulletins
+  belongs_to :author,
+             class_name: 'User',
+             foreign_key: 'user_id',
+             inverse_of: :bulletins
   belongs_to :category
   has_one_attached :photo
 
@@ -26,7 +29,7 @@ class Bulletin < ApplicationRecord
     state :archived
 
     event :send_to_moderate do
-      transitions from: %i[draft rejected], to: :on_moderate
+      transitions from: %i[draft published on_moderate rejected], to: :on_moderate
     end
 
     event :publish do

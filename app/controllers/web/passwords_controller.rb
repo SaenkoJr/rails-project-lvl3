@@ -13,7 +13,7 @@ class Web::PasswordsController < Web::ApplicationController
     @form = User::PasswordForm.new(password_params, user: current_user)
 
     if @form.update
-      redirect_to user_path current_user
+      redirect_to user_path(current_user), notice: t('.success')
     else
       render :edit
     end

@@ -15,5 +15,9 @@ en:
         heading: Update bulletin
       new:
         heading: Create bulletin
-
-
+      create:
+        success: Post was created
+      update:
+        success: Post was updated
+      archive:
+        success: Post was archived

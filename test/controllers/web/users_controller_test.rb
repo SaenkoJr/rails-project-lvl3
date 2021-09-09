@@ -16,18 +16,11 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
 
   test '#show (guest must be redirected)' do
     get user_path users(:two)
-    assert_response :redirect
     assert_redirected_to root_path
   end
 
   test '#create' do
-    user_attrs = {
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
-      password: 'password',
-      password_confirmation: 'password'
-    }
+    user_attrs = attributes_for(:with_password)
 
     assert_difference('User.count', +1) do
       post users_path, params: { user: user_attrs }
@@ -36,15 +29,13 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
     user = User.find_by(email: user_attrs[:email])
 
     assert { user.present? }
+    assert_equal user.first_name, user_attrs[:first_name]
   end
 
   test '#update (signed in user)' do
     user = sign_in_as :one
 
-    user_attrs = {
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name
-    }
+    user_attrs = attributes_for(:user)
 
     patch user_path(user), params: { user: user_attrs }
 
@@ -60,6 +51,27 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
       delete user_path user
     end
 
-    assert_response :redirect
+    assert_redirected_to root_path
+  end
+
+  test '#destroy (other user)' do
+    sign_in_as :one
+    user = users(:two)
+
+    assert_no_difference('User.count') do
+      delete user_path user
+    end
+
+    assert_redirected_to root_path
+  end
+
+  test '#destroy (guest must be redirected)' do
+    user = users(:one)
+
+    assert_no_difference('User.count') do
+      delete user_path user
+    end
+
+    assert_redirected_to root_path
   end
 end

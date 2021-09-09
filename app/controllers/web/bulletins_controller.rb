@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < Web::ApplicationController
-  before_action :set_bulletin, only: %i[show edit update destroy archive]
+  before_action :set_bulletin, only: %i[show edit update archive]
 
   after_action :verify_authorized, except: %i[index show]
 
@@ -33,9 +33,9 @@ class Web::BulletinsController < Web::ApplicationController
     change_status(@bulletin)
 
     if @bulletin.save
-      redirect_to @bulletin
+      redirect_to @bulletin, notice: t('.success')
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -44,9 +44,9 @@ class Web::BulletinsController < Web::ApplicationController
 
     change_status(@bulletin)
     if @bulletin.update bulletin_params
-      redirect_to @bulletin
+      redirect_to @bulletin, notice: t('.success')
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -57,16 +57,8 @@ class Web::BulletinsController < Web::ApplicationController
       @bulletin.archive!
       redirect_to @bulletin, notice: t('.success')
     else
-      redirect_to @bulletin, alert: t('.failed')
+      redirect_to @bulletin, status: :unprocessable_entity
     end
-  end
-
-  def destroy
-    authorize @bulletin
-
-    @bulletin.destroy
-
-    redirect_back(fallback_location: root_path)
   end
 
   private

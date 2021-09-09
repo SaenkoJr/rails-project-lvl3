@@ -21,4 +21,15 @@ module AuthConcern
   def authenticate_admin!
     redirect_to root_path unless current_user.admin?
   end
+
+  def sign_in_as(name)
+    user = users(name)
+    post session_url, params: {
+      user: {
+        email: user.email,
+        password: 'password'
+      }
+    }
+    user
+  end
 end

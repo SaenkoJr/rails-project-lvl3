@@ -2,7 +2,7 @@
 
 class UserPolicy < ApplicationPolicy
   def show?
-    owner_or_admin?
+    current_user? || admin?
   end
 
   def create?
@@ -10,20 +10,24 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    owner_or_admin?
+    current_user? || admin?
   end
 
   def update?
-    owner_or_admin?
+    current_user? || admin?
   end
 
   def destroy?
-    user.admin?
+    current_user? || admin?
   end
 
   private
 
-  def owner_or_admin?
-    record.id == user.id || user.admin?
+  def current_user?
+    record.id == user.id
+  end
+
+  def admin?
+    user.admin?
   end
 end

@@ -11,18 +11,18 @@ class Web::PasswordsControllerTest < ActionDispatch::IntegrationTest
 
   test '#update' do
     user = sign_in_as :one
-
     old_password_digest = user.password_digest
-    old_password = 'password'
-    new_password = 'newpassword'
+    new_password = generate(:password)
 
-    patch password_path, params: {
+    params = {
       user_password_form: {
-        old_password: old_password,
+        old_password: 'password',
         password: new_password,
         password_confirmation: new_password
       }
     }
+
+    patch password_path, params: params
 
     user.reload
     assert_response :redirect

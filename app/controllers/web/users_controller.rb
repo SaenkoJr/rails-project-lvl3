@@ -39,18 +39,17 @@ class Web::UsersController < Web::ApplicationController
     authorize @user
 
     if @user.update user_params
-      redirect_to @user
+      redirect_to @user, notice: t('.success')
     else
       render :edit
     end
   end
 
   def destroy
-    authorize User
+    authorize @user
 
-    user = User.find(params[:id])
-    user.destroy
-    redirect_to root_path
+    @user.destroy
+    redirect_to root_path, notice: t('.success')
   end
 
   private

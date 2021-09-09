@@ -11,12 +11,24 @@ en:
           heading: Create category
         edit:
           heading: Update category
+        create:
+          success: Category was created
+        update:
+          success: Category was updated
+        destroy:
+          success: Category was deleted
       bulletins:
         index:
           heading: Bulletins
         edit:
           heading: Update bulletin
+        update:
+          success: Bulletin was updated
       users:
         edit:
           heading: Update user info
+        update:
+          success: User was updated
+        destroy:
+          success: User was deleted
 

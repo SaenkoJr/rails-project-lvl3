@@ -1,0 +1,11 @@
+- if flash[:notice]
+  .container.my-2
+    - flash.each do |_, msg|
+      .alert.alert-info
+        = msg
+
+- if flash[:alert]
+  .container.my-2
+    - flash.each do |_, msg|
+      .alert.alert-danger
+        = msg

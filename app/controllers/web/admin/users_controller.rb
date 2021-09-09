@@ -7,7 +7,7 @@ class Web::Admin::UsersController < Web::Admin::ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to admin_root_path
+      redirect_to admin_root_path, notice: t('.success')
     else
       render :edit
     end
@@ -16,7 +16,7 @@ class Web::Admin::UsersController < Web::Admin::ApplicationController
   def destroy
     @user.destroy
 
-    redirect_to admin_root_path
+    redirect_to admin_root_path, notice: t('.success')
   end
 
   private

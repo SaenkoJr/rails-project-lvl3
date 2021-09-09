@@ -15,7 +15,7 @@ class Web::SessionsController < Web::ApplicationController
     end
 
     sign_in user
-    redirect_to user
+    redirect_to root_path
   end
 
   def create
@@ -25,7 +25,7 @@ class Web::SessionsController < Web::ApplicationController
       sign_in(user)
       redirect_to root_path
     else
-      redirect_to new_session_path, notice: 'wrong'
+      redirect_to new_session_path, alert: t('.failed')
     end
   end
 

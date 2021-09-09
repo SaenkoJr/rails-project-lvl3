@@ -16,7 +16,6 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   test '#index (non admin cant get index page)' do
     sign_in_as :one
     get admin_categories_path
-    assert_response :redirect
     assert_redirected_to root_path
   end
 
@@ -29,29 +28,34 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   test '#new (non admin cant get new page)' do
     sign_in_as :one
     get new_admin_category_path
-    assert_response :redirect
     assert_redirected_to root_path
   end
 
   test '#create (as admin)' do
     sign_in_as :admin
+    params = {
+      category: attributes_for(:category)
+    }
 
     assert_difference('Category.count', +1) do
-      post admin_categories_path, params: { category: { name: 'new category' } }
+      post admin_categories_path, params: params
     end
 
     category = Category.last
-    assert_equal category.name, 'new category'
+    assert_equal category.name, params[:category][:name]
   end
 
   test '#create (non admin cant create category)' do
     sign_in_as :one
 
+    params = {
+      category: attributes_for(:category)
+    }
+
     assert_no_difference('Category.count') do
-      post admin_categories_path, params: { category: { name: 'new category' } }
+      post admin_categories_path, params: params
     end
 
-    assert_response :redirect
     assert_redirected_to root_path
   end
 
@@ -64,41 +68,35 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   test '#edit (non admin cant get edit page)' do
     sign_in_as :one
     get edit_admin_category_path(@category)
-    assert_response :redirect
     assert_redirected_to root_path
   end
 
   test '#update (as admin)' do
     sign_in_as :admin
 
-    new_name = 'updated category'
-
-    patch admin_category_path(@category), params: {
-      category: {
-        name: new_name
-      }
+    params = {
+      category: attributes_for(:category)
     }
 
+    patch admin_category_path(@category), params: params
+
     @category.reload
-    assert_response :redirect
-    assert_equal @category.name, new_name
+    assert_redirected_to admin_categories_path
+    assert_equal @category.name, params[:category][:name]
   end
 
   test '#update (non admin cant update user)' do
     sign_in_as :one
 
     old_name = @category.name
-    new_name = 'updated name'
-
-    patch admin_category_path(@category), params: {
-      category: {
-        name: new_name
-      }
+    params = {
+      category: attributes_for(:category)
     }
+
+    patch admin_category_path(@category), params: params
 
     @category.reload
     assert_equal @category.name, old_name
-    assert_response :redirect
     assert_redirected_to root_path
   end
 
@@ -108,6 +106,8 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Category.count', -1) do
       delete admin_category_path(@category)
     end
+
+    assert_redirected_to admin_categories_path
   end
 
   test '#destroy (non admin cant delete user)' do
@@ -117,7 +117,6 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
       delete admin_category_path(@category)
     end
 
-    assert_response :redirect
     assert_redirected_to root_path
   end
 end

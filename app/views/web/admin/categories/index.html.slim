@@ -26,7 +26,10 @@ table.table
         td= link_to category.id, edit_admin_category_path(category)
         td= category.name
         td= l category.created_at
-        td= link_to t(:destroy), admin_category_path(category), method: :delete, data: { confirm: t(:destory_confirmation) }
+        td= link_to t(:destroy), admin_category_path(category),
+                                 method: :delete,
+                                 data: { confirm: t(:destory_confirmation) },
+                                 class: 'link-danger'
   tfoot
     tr
       td colspan=3

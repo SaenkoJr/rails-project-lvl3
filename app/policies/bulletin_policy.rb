@@ -22,7 +22,7 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def archive?
-    author_or_admin?
+    author_or_admin? && !record.archived?
   end
 
   private

@@ -20,6 +20,6 @@ class Web::ApplicationController < ApplicationController
   end
 
   def user_not_authorized
-    redirect_to root_path
+    redirect_to root_path, alert: t(:not_authorized)
   end
 end

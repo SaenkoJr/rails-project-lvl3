@@ -4,3 +4,5 @@ en:
       new:
         heading: Sign in
         sign_in: Sign in
+      create:
+        failed: Wrong password or email

@@ -18,6 +18,13 @@ h1.mb-4= t('.heading')
     - if policy(:password).edit?
       = link_to t('.update_password'), edit_password_path
 
+    - if policy(@user).destroy?
+      hr
+      = link_to t(:delete), user_path,
+                            method: :delete,
+                            data: { confirm: t(:destroy_confirmation) },
+                            class: 'btn btn-outline-danger'
+
   .col-sm-8
     h5= t('.my_bulletins')
     hr

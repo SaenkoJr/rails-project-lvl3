@@ -35,6 +35,7 @@ end
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'rubocop'
   gem 'rubocop-performance'

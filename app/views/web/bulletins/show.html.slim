@@ -25,12 +25,12 @@
 
       hr
 
-    - if current_user.admin?
+    - if current_user.admin? && !@bulletin.archived?
       = link_to t(:edit), edit_admin_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
     - elsif policy(@bulletin).edit? && !@bulletin.archived?
       = link_to t(:edit), edit_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
 
-    - if policy(@bulletin).archive? && @bulletin.may_archive?
+    - if policy(@bulletin).archive?
       = link_to t(:archive), archive_bulletin_path(@bulletin),
                           method: :patch,
                           data: { confirm: t(:archive_confirmation) },
