@@ -12,7 +12,7 @@ hr
   = f.association :category, prompt: :translate, input_html: { class: 'form-select' }
   = f.input :photo, as: :file
   - if @bulletin.photo_attachment
-    = image_tag @bulletin.photo.variant(), class: 'img-thumbnail mt-2'
+    = image_tag @bulletin.photo.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail mt-2'
   hr
   = f.button :submit, class: 'btn btn-outline-primary me-2'
   = link_to t(:back), :back, class: 'btn btn-outline-secondary me-2'
