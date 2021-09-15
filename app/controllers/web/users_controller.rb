@@ -3,7 +3,7 @@
 class Web::UsersController < Web::ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
-  after_action :verify_authorized, except: %i[new create]
+  after_action :verify_authorized
 
   def show
     authorize @user
