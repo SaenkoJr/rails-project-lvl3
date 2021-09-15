@@ -8,19 +8,19 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#edit (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     get edit_admin_user_path(@user)
     assert_response :success
   end
 
   test '#edit (non admin cant get edit page)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
     get edit_admin_user_path(@user)
     assert_redirected_to root_path
   end
 
   test '#update (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
 
     new_first_name = generate(:first_name)
 
@@ -36,7 +36,7 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update (non admin cant update user)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
 
     old_name = @user.first_name
     new_first_name = generate(:first_name)
@@ -53,7 +53,7 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#delete (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
 
     assert_difference('User.count', -1) do
       delete admin_user_path users(:two)
@@ -63,7 +63,7 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#delete (non admin cant delete user)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
     user = users(:two)
 
     assert_no_difference('User.count') do

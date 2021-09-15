@@ -9,7 +9,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#new (signed in user)' do
-    sign_in_as(:one)
+    sign_in_as_with_github(:one)
     get new_bulletin_path
     assert_response :success
   end
@@ -25,13 +25,13 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#edit (as author)' do
-    sign_in_as(:one)
+    sign_in_as_with_github(:one)
     get edit_bulletin_path @bulletin
     assert_response :success
   end
 
   test '#edit (non author must be redirected)' do
-    sign_in_as(:two)
+    sign_in_as_with_github(:two)
     get edit_bulletin_path @published
     assert_redirected_to root_path
   end
@@ -42,7 +42,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#create (signed in user)' do
-    user = sign_in_as(:one)
+    user = sign_in_as_with_github(:one)
     category = categories(:one)
 
     params = {
@@ -65,7 +65,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#create (save as draft)' do
-    sign_in_as(:one)
+    sign_in_as_with_github(:one)
     category = categories(:one)
 
     params = {
@@ -94,7 +94,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update (as author)' do
-    sign_in_as(:one)
+    sign_in_as_with_github(:one)
 
     new_category = categories(:two)
     params = {
@@ -111,7 +111,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update (non author must be redirected to root path)' do
-    sign_in_as(:two)
+    sign_in_as_with_github(:two)
 
     params = {
       bulletin: {
@@ -137,7 +137,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#archive (as author)' do
-    sign_in_as(:one)
+    sign_in_as_with_github(:one)
 
     patch archive_bulletin_path @published
 
@@ -147,7 +147,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#archive (none author must be redirected)' do
-    sign_in_as(:two)
+    sign_in_as_with_github(:two)
 
     patch archive_bulletin_path @published
 

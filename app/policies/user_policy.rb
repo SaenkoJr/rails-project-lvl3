@@ -5,10 +5,6 @@ class UserPolicy < ApplicationPolicy
     current_user? || admin?
   end
 
-  def create?
-    true
-  end
-
   def edit?
     current_user? || admin?
   end

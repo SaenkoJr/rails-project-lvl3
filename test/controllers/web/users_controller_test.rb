@@ -3,13 +3,8 @@
 require 'test_helper'
 
 class Web::UsersControllerTest < ActionDispatch::IntegrationTest
-  test '#new' do
-    get new_user_path
-    assert_response :success
-  end
-
   test '#show (signed in user)' do
-    user = sign_in_as :one
+    user = sign_in_as_with_github :one
     get user_path user
     assert_response :success
   end
@@ -19,21 +14,27 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test '#create' do
-    user_attrs = attributes_for(:with_password)
+  test '#update (guest must be redirected)' do
+    user = users(:two)
 
-    assert_difference('User.count', +1) do
-      post users_path, params: { user: user_attrs }
-    end
+    user_attrs = attributes_for(:user)
 
-    user = User.find_by(email: user_attrs[:email])
+    patch user_path(user), params: { user: user_attrs }
+    assert_redirected_to root_path
+  end
 
-    assert { user.present? }
-    assert_equal user.first_name, user_attrs[:first_name]
+  test '#update (only current user can update his info)' do
+    sign_in_as_with_github(:one)
+    user = users(:two)
+
+    user_attrs = attributes_for(:user)
+
+    patch user_path(user), params: { user: user_attrs }
+    assert_redirected_to root_path
   end
 
   test '#update (signed in user)' do
-    user = sign_in_as :one
+    user = sign_in_as_with_github :one
 
     user_attrs = attributes_for(:user)
 
@@ -45,7 +46,7 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#destroy' do
-    user = sign_in_as :one
+    user = sign_in_as_with_github :one
 
     assert_difference('User.count', -1) do
       delete user_path user
@@ -54,8 +55,8 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test '#destroy (other user)' do
-    sign_in_as :one
+  test '#destroy (only current user can delete)' do
+    sign_in_as_with_github :one
     user = users(:two)
 
     assert_no_difference('User.count') do

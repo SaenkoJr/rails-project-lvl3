@@ -5,6 +5,7 @@ en:
         sign_in: Sign in
         sign_up: Sign up
         sign_out: Log out
+        github_auth: Sign in with Github
         create_bulletin: Create bulletin
         admin: Admin panel
         profile: Profile

@@ -5,10 +5,6 @@ class Web::UsersController < Web::ApplicationController
 
   after_action :verify_authorized, except: %i[new create]
 
-  def new
-    @user = User.new
-  end
-
   def show
     authorize @user
     @q = @user.bulletins.ransack(ransack_params)
@@ -22,17 +18,6 @@ class Web::UsersController < Web::ApplicationController
 
   def edit
     authorize @user
-  end
-
-  def create
-    @user = User.new user_params
-
-    if @user.save
-      sign_in(@user)
-      redirect_to @user
-    else
-      render :edit
-    end
   end
 
   def update

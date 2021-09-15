@@ -3,6 +3,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'helpers/sign_in'
 
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(
@@ -23,5 +24,6 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
+  include SignIn
   include AuthConcern
 end

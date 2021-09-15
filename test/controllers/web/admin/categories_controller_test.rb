@@ -8,31 +8,31 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#index (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     get admin_categories_path
     assert_response :success
   end
 
   test '#index (non admin cant get index page)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
     get admin_categories_path
     assert_redirected_to root_path
   end
 
   test '#new (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     get new_admin_category_path
     assert_response :success
   end
 
   test '#new (non admin cant get new page)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
     get new_admin_category_path
     assert_redirected_to root_path
   end
 
   test '#create (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     params = {
       category: attributes_for(:category)
     }
@@ -46,7 +46,7 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#create (non admin cant create category)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
 
     params = {
       category: attributes_for(:category)
@@ -60,19 +60,19 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#edit (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     get edit_admin_category_path(@category)
     assert_response :success
   end
 
   test '#edit (non admin cant get edit page)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
     get edit_admin_category_path(@category)
     assert_redirected_to root_path
   end
 
   test '#update (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
 
     params = {
       category: attributes_for(:category)
@@ -86,7 +86,7 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update (non admin cant update user)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
 
     old_name = @category.name
     params = {
@@ -101,7 +101,7 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#destroy (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
 
     assert_difference('Category.count', -1) do
       delete admin_category_path(@category)
@@ -111,7 +111,7 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#destroy (non admin cant delete user)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
 
     assert_no_difference('Category.count') do
       delete admin_category_path(@category)

@@ -8,31 +8,31 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#index (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     get admin_bulletins_path(@bulletin)
     assert_response :success
   end
 
   test '#index (non admin cant get index page)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
     get admin_bulletins_path(@bulletin)
     assert_redirected_to root_path
   end
 
   test '#edit (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     get edit_admin_bulletin_path(@bulletin)
     assert_response :success
   end
 
   test '#edit (non admin cant get edit page)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
     get edit_admin_bulletin_path(@bulletin)
     assert_redirected_to root_path
   end
 
   test '#update (as admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
 
     params = {
       bulletin: {
@@ -47,7 +47,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update (non admin cant update user)' do
-    sign_in_as :one
+    sign_in_as_with_github :one
 
     old_name = @bulletin.name
     params = {
@@ -64,7 +64,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'publish bulletin' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     bulletin = bulletins(:without_description)
 
     params = { bulletin: { status_event: :publish } }
@@ -73,7 +73,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'reject bulletin' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     bulletin = bulletins(:without_description)
 
     params = { bulletin: { status_event: :reject } }
@@ -82,7 +82,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'archive bulletin' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     bulletin = bulletins(:two)
 
     params = { bulletin: { status_event: :archive } }

@@ -14,9 +14,6 @@ h1.mb-4= t('.heading')
 
     - if policy(@user).edit?
       = link_to t('.update_profile'), edit_user_path
-      br
-    - if policy(:password).edit?
-      = link_to t('.update_password'), edit_password_path
 
     - if policy(@user).destroy?
       hr

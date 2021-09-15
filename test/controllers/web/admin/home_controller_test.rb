@@ -4,7 +4,7 @@ require 'test_helper'
 
 class Web::Admin::HomeControllerTest < ActionDispatch::IntegrationTest
   test '#index (admin)' do
-    sign_in_as :admin
+    sign_in_as_with_github :admin
     get admin_root_path
     assert_response :success
   end

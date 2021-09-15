@@ -5,11 +5,11 @@ Rails.application.routes.draw do
     root 'bulletins#index'
 
     post 'auth/:provider', to: 'sessions#request', as: :auth_request
-    get 'auth/:provider/callback', to: 'sessions#callback', as: :auth_callback
+    post 'auth/:provider/callback', to: 'sessions#callback', as: :auth_callback
 
-    resource :session, only: %i[new create destroy]
+    resource :session, only: %i[destroy]
 
-    resources :users
+    resources :users, except: %i[new create]
     resource :password, only: %i[edit update]
     resources :bulletins do
       patch :archive, on: :member
