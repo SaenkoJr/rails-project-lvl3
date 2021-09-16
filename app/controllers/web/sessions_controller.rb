@@ -12,7 +12,7 @@ class Web::SessionsController < Web::ApplicationController
     end
 
     sign_in user
-    redirect_to root_path
+    redirect_to root_path, notice: t('.success')
   end
 
   def destroy

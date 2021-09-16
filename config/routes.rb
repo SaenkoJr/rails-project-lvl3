@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     root 'bulletins#index'
 
     post 'auth/:provider', to: 'sessions#request', as: :auth_request
-    get 'auth/:provider/callback', to: 'sessions#callback', as: :auth_callback
+    match 'auth/:provider/callback', to: 'sessions#callback', as: :auth_callback, via: %i[get post]
 
     resource :session, only: %i[destroy]
 
