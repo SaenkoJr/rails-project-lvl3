@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     resource :session, only: %i[destroy]
 
     resources :users, except: %i[new create]
-    resource :password, only: %i[edit update]
     resources :bulletins do
       patch :archive, on: :member
     end

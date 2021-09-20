@@ -13,10 +13,6 @@ en:
         author_email_cont: Find by email
         category_name_cont: Find by category
         status_cont: Find by status
-      user_password_form:
-        old_password: Old password
-        new_password: New password
-        password_confirmation: Password confirmation
     placeholders:
       q:
         author_cont: Enter first name, last name or email

@@ -11,14 +11,11 @@ en:
         status: Find by status
         category: Find by category
         update_profile: Update info
-        update_password: Update password
       new:
         heading: Registration
         sign_up: Sign up
       edit:
         heading: Update info
-      security:
-        heading: Update password
       update:
         success: Info was updated
       destroy:

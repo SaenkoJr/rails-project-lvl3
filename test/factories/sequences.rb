@@ -13,10 +13,6 @@ FactoryBot.define do
     Faker::Name.last_name
   end
 
-  sequence :password do
-    Faker::Internet.password(min_length: 8)
-  end
-
   sequence :name do
     Faker::Lorem.sentence(word_count: 2)
   end

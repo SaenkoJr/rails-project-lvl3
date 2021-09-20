@@ -3,7 +3,5 @@ en:
     submit:
       user:
         update: Save
-      user_password_form:
-        create: Save
       bulletin:
         update: Save

@@ -47,9 +47,7 @@ class Web::UsersController < Web::ApplicationController
     params.require(:user).permit(
       :email,
       :first_name,
-      :last_name,
-      :password,
-      :password_confirmation
+      :last_name
     )
   end
 end
