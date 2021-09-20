@@ -9,6 +9,12 @@
 
 ## Development
 
+# Required
+* Ruby >= 3.0.1
+* Nodejs
+* SQLite3
+* Yarn
+
 ```sh
 make install
 make lint
