@@ -26,9 +26,9 @@ h1.mb-4= t('.heading')
     h5= t('.my_bulletins')
     hr
     = search_form_for @q, html: { class: 'row row-cols-4' }, url: user_path(@user) do |f|
-      = f.input :name_cont
-      = f.input :status_cont,
-                collection: @statuses,
+      = f.input :title_cont
+      = f.input :state_cont,
+                collection: @states,
                 input_html: { class: 'form-select form-control-sm' }
       = f.input :category_name_cont,
                 collection: @categories,
@@ -42,19 +42,19 @@ h1.mb-4= t('.heading')
     table.table
       thead
         tr.d-flex
-          th.col-4= sort_link(@q, 'name')
+          th.col-4= sort_link(@q, 'title')
           th.col-3= sort_link(@q, 'category')
-          th.col-2= sort_link(@q, 'status')
+          th.col-2= sort_link(@q, 'state')
           th.col-3= sort_link(@q, 'created_at')
       tbody
         - @bulletins.each do |bulletin|
           tr.d-flex
             td.col-4
-              .text-truncate= link_to bulletin.name, bulletin_path(bulletin)
+              .text-truncate= link_to bulletin.title, bulletin_path(bulletin)
             td.col-3
               .text-truncate= bulletin.category.name
             td.col-2
-              = render partial: 'web/shared/status_badge', locals: { status: bulletin.aasm(:status) }
+              = render partial: 'web/shared/status_badge', locals: { state: bulletin.aasm(:state) }
             td.col-3= l bulletin.created_at
       tfoot
         tr

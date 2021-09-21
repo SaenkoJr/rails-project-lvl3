@@ -10,8 +10,7 @@
               i.bi.bi-card-image.text-light
         .col-md-8
           .card-body.d-flex.flex-column.justify-content-between.h-100
-            h5.card-title= bulletin.name
-              / = link_to bulletin.name, bulletin_path(bulletin), class: 'link-secondary'
+            h5.card-title= bulletin.title
             small.text-info= bulletin.category.name
             hr
             p.card-text.text-truncate.flex-grow-1= bulletin.description
@@ -20,8 +19,8 @@
               small.text-muted
                 |
                   Author: 
-                - if bulletin.author.full_name.empty?
-                  = bulletin.author.email
+                - if bulletin.user.full_name.empty?
+                  = bulletin.user.email
                 - else
-                  = bulletin.author.full_name
+                  = bulletin.user.full_name
               small.text-muted Created at: #{l(bulletin.created_at)}

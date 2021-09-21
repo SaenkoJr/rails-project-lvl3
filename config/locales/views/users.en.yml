@@ -8,7 +8,7 @@ en:
         last_name: Last name
         my_bulletins: My bulletins
         name: Find by name
-        status: Find by status
+        state: Find by status
         category: Find by category
         update_profile: Update info
       new:

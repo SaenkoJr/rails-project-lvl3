@@ -7,15 +7,22 @@ en:
       mark: '*'
     labels:
       q:
-        name_cont: Find by name
-        email_cont: Find by user email
-        author_cont: Find by author
-        author_email_cont: Find by email
-        category_name_cont: Find by category
-        status_cont: Find by status
+        categories:
+          name_cont: Find by name
+        users:
+          email_cont: Find by email
+          name_cont: Find by name
+        bulletins:
+          title_cont: Find by title
+          email_cont: Find by author email
+          category_cont: Find by category
+          state_cont: Find by status
+          author_cont: Find by author
     placeholders:
       q:
-        author_cont: Enter first name, last name or email
-        name_cont: Enter first name or last name
+        users:
+          name_cont: Enter first name or last name
+        bulletins:
+          author_cont: Enter first name, last name or email
     error_notification:
       default_message: "Please review the problems below:"

@@ -1,21 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: <%= Faker::Lorem.sentence(word_count: 4) %>
+  title: <%= Faker::Lorem.sentence(word_count: 4) %>
   description: <%= Faker::Lorem.paragraph(sentence_count: 3) %>
-  author: one
+  user: one
   category: one
-  status: draft
+  state: draft
 
 two:
-  name: <%= Faker::Lorem.sentence(word_count: 4) %>
+  title: <%= Faker::Lorem.sentence(word_count: 4) %>
   description: <%= Faker::Lorem.paragraph(sentence_count: 3) %>
-  author: one
+  user: one
   category: two
-  status: published
+  state: published
 
 without_description:
-  name: <%= Faker::Lorem.sentence(word_count: 4) %>
-  author: one
+  title: <%= Faker::Lorem.sentence(word_count: 4) %>
+  user: one
   category: three
-  status: on_moderate
+  state: on_moderate

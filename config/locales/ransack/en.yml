@@ -6,9 +6,9 @@ en:
       bulletin:
         id: ID
         name: Name
-        author_email: Email
+        user_email: Email
         category_name: Category
-        status: Status
+        state: Status
         created_at: Created at
       category:
         id: ID

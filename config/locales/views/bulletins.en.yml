@@ -9,7 +9,7 @@ en:
       show:
         description: Description
         category: Category
-        author: Author
+        user: Author
         created_at: Created at
       edit:
         heading: Update bulletin

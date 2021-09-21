@@ -2,11 +2,11 @@
   .col-sm-10
     .row.gx-4
       .col-8
-        h2.mb-4= @bulletin.name
+        h2.mb-4= @bulletin.state
         dl.row
           - if author_or_admin? @bulletin
-            dt.col-sm-3.mb-4 #{t('.status')}:
-            dd.col-sm-9.mb-4= render partial: 'web/shared/status_badge', locals: { status: @bulletin.aasm(:status) }
+            dt.col-sm-3.mb-4 #{t('.state')}:
+            dd.col-sm-9.mb-4= render partial: 'web/shared/status_badge', locals: { state: @bulletin.aasm(:state) }
 
           dt.col-sm-3.mb-4 #{t('.description')}:
           dd.col-sm-9.mb-4= @bulletin.description
@@ -14,8 +14,8 @@
           dt.col-sm-3.mb-4 #{t('.category')}:
           dd.col-sm-9.mb-4= @bulletin.category.name
 
-          dt.col-sm-3.mb-4 #{t('.author')}:
-          dd.col-sm-9.mb-4= @bulletin.author.full_name.empty? ? @bulletin.author.email : @bulletin.author.full_name
+          dt.col-sm-3.mb-4 #{t('.user')}:
+          dd.col-sm-9.mb-4= @bulletin.user.full_name.empty? ? @bulletin.user.email : @bulletin.user.full_name
 
           dt.col-sm-3.mb-4 #{t('.created_at')}:
           dd.col-sm-9.mb-4= l @bulletin.created_at

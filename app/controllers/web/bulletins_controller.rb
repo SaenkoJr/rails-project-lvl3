@@ -8,7 +8,7 @@ class Web::BulletinsController < Web::ApplicationController
   def index
     @q = Bulletin.published.ransack(ransack_params)
     @bulletins = @q.result
-                   .includes(%i[author category])
+                   .includes(%i[user category])
                    .page(page)
                    .per(per_page)
     @categories = Category.all
@@ -30,7 +30,7 @@ class Web::BulletinsController < Web::ApplicationController
     authorize Bulletin
 
     @bulletin = current_user.bulletins.build bulletin_params
-    change_status(@bulletin)
+    change_state(@bulletin)
 
     if @bulletin.save
       redirect_to @bulletin, notice: t('.success')
@@ -42,7 +42,7 @@ class Web::BulletinsController < Web::ApplicationController
   def update
     authorize @bulletin
 
-    change_status(@bulletin)
+    change_state(@bulletin)
     if @bulletin.update bulletin_params
       redirect_to @bulletin, notice: t('.success')
     else
@@ -63,13 +63,13 @@ class Web::BulletinsController < Web::ApplicationController
 
   private
 
-  def change_status(bulletin)
+  def change_state(bulletin)
     bulletin.send_to_moderate if params[:moderate]
     bulletin.hide if params[:hide]
   end
 
   def bulletin_params
-    params.require(:bulletin).permit(:name, :description, :category_id, :photo)
+    params.require(:bulletin).permit(:title, :description, :category_id, :photo)
   end
 
   def set_bulletin

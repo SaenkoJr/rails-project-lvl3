@@ -13,7 +13,7 @@ class Web::UsersController < Web::ApplicationController
                    .page(page)
                    .per(per_page)
     @categories = Category.all
-    @statuses = Bulletin.aasm(:status).states.map(&:human_name)
+    @states = Bulletin.aasm(:state).states.map(&:human_name)
   end
 
   def edit

@@ -36,30 +36,30 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     params = {
       bulletin: {
-        name: generate(:name)
+        title: generate(:title)
       }
     }
 
     patch admin_bulletin_path(@bulletin), params: params
 
     @bulletin.reload
-    assert_equal @bulletin.name, params[:bulletin][:name]
+    assert_equal @bulletin.title, params[:bulletin][:title]
   end
 
   test '#update (non admin cant update user)' do
     sign_in_as_with_github :one
 
-    old_name = @bulletin.name
+    old_title = @bulletin.title
     params = {
       bulletin: {
-        name: generate(:name)
+        title: generate(:title)
       }
     }
 
     patch admin_bulletin_path(@bulletin), params: params
 
     @bulletin.reload
-    assert_equal @bulletin.name, old_name
+    assert_equal @bulletin.title, old_title
     assert_redirected_to root_path
   end
 
@@ -67,7 +67,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as_with_github :admin
     bulletin = bulletins(:without_description)
 
-    params = { bulletin: { status_event: :publish } }
+    params = { bulletin: { state_event: :publish } }
     patch admin_bulletin_path(bulletin), params: params
     assert bulletin.reload.published?
   end
@@ -76,7 +76,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as_with_github :admin
     bulletin = bulletins(:without_description)
 
-    params = { bulletin: { status_event: :reject } }
+    params = { bulletin: { state_event: :reject } }
     patch admin_bulletin_path(bulletin), params: params
     assert bulletin.reload.rejected?
   end
@@ -85,7 +85,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as_with_github :admin
     bulletin = bulletins(:two)
 
-    params = { bulletin: { status_event: :archive } }
+    params = { bulletin: { state_event: :archive } }
     patch admin_bulletin_path(bulletin), params: params
     assert bulletin.reload.archived?
   end

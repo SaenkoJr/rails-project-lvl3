@@ -2,12 +2,12 @@ h2.mb-2= t('.heading')
 
 hr
 .mb-3
-  = render partial: 'web/shared/status_badge', locals: { status: @bulletin.aasm(:status) }
+  = render partial: 'web/shared/status_badge', locals: { state: @bulletin.aasm(:state) }
 
 = simple_form_for @bulletin, url: admin_bulletin_path do |f|
   - if !@bulletin.archived?
-    = f.input :status_event, as: :status_event, prompt: :translate, input_html: { class: 'form-select' }
-  = f.input :name
+    = f.input :state_event, as: :state_event, prompt: :translate, input_html: { class: 'form-select' }
+  = f.input :title
   = f.input :description, input_html: { rows: 10 }
   = f.association :category, prompt: :translate, input_html: { class: 'form-select' }
   = f.input :photo, as: :file

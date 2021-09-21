@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class StatusEventInput < SimpleForm::Inputs::CollectionSelectInput
+class StateEventInput < SimpleForm::Inputs::CollectionSelectInput
   def collection
-    object.aasm(:status).events(permitted: true).map do |event|
-      [object.class.aasm(:status).human_event_name(event), event.name]
+    object.aasm(:state).events(permitted: true).map do |event|
+      [object.class.aasm(:state).human_event_name(event), event.name]
     end
   end
 

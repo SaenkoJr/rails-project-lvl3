@@ -6,13 +6,13 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   def index
     @q = Bulletin.ransack(ransack_params)
     @bulletins = @q.result
-                   .includes(%i[author category])
+                   .includes(%i[user category])
                    .page(page)
                    .per(per_page)
     @categories = Category.all
-    @statuses = Bulletin.aasm(:status)
-                        .states
-                        .map(&:human_name)
+    @states = Bulletin.aasm(:state)
+                      .states
+                      .map(&:human_name)
   end
 
   def edit; end
@@ -32,6 +32,6 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   end
 
   def bulletin_params
-    params.require(:bulletin).permit(:name, :description, :category_id, :photo, :status_event)
+    params.require(:bulletin).permit(:title, :description, :category_id, :photo, :state_event)
   end
 end

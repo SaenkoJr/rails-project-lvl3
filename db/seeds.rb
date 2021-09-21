@@ -28,7 +28,7 @@ end
     name: Faker::Lorem.sentence,
     description: Faker::Lorem.paragraph,
     category: c.sample,
-    author: u.sample
+    user: u.sample
   )
   b.save
 end

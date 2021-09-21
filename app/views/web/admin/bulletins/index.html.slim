@@ -3,14 +3,16 @@ h2= t('.heading')
 hr
 
 = search_form_for @q, url: admin_bulletins_path, html: { class: 'row row-cols-4' } do |f|
-  = f.input :name_cont
-  = f.input :author_email_cont
+  = f.input :title_cont, label: t(:title_cont, scope: [:simple_form, :labels, :q, :bulletins])
+  = f.input :user_email_cont, label: t(:email_cont, scope: [:simple_form, :labels, :q, :bulletins])
   = f.input :category_name_cont,
             collection: @categories,
             value_method: :name,
+            label: t(:category_cont, scope: [:simple_form, :labels, :q, :bulletins]),
             input_html: { class: 'form-select' }
-  = f.input :status_cont,
-            collection: @statuses,
+  = f.input :state_cont,
+            collection: @states,
+            label: t(:state_cont, scope: [:simple_form, :labels, :q, :bulletins]),
             input_html: { class: 'form-select' }
   .col-auto.d-flex.mb-3
     .mt-auto
@@ -23,19 +25,19 @@ table.table
   thead
     tr
       th= sort_link(@q, 'id')
-      th= sort_link(@q, 'name')
-      th= sort_link(@q, 'author_email')
+      th= sort_link(@q, 'title')
+      th= sort_link(@q, 'user_email')
       th= sort_link(@q, 'category_name')
-      th= sort_link(@q, 'status')
+      th= sort_link(@q, 'state')
       th= sort_link(@q, 'created_at')
   tbody
     - @bulletins.each do |bulletin|
       tr
         td= link_to bulletin.id, edit_admin_bulletin_path(bulletin)
-        td= bulletin.name
-        td= link_to bulletin.author.email, edit_admin_user_path(bulletin.author)
+        td= bulletin.title
+        td= link_to bulletin.user.email, edit_admin_user_path(bulletin.user)
         td= bulletin.category.name
-        td= render partial: 'web/shared/status_badge', locals: { status: bulletin.aasm(:status) }
+        td= render partial: 'web/shared/status_badge', locals: { state: bulletin.aasm(:state) }
         td= l bulletin.created_at
   tfoot
     tr

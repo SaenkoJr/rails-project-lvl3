@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :bulletin do
-    name
+    title
     description
     category_id { nil }
 

@@ -13,7 +13,7 @@ FactoryBot.define do
     Faker::Name.last_name
   end
 
-  sequence :name do
+  sequence :name, aliases: [:title] do
     Faker::Lorem.sentence(word_count: 2)
   end
 

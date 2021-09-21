@@ -58,9 +58,9 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     end
 
     bulletin = Bulletin.last
-    assert_equal bulletin.name, params[:bulletin][:name]
+    assert_equal bulletin.title, params[:bulletin][:title]
     assert_equal bulletin.category, category
-    assert_equal bulletin.author, user
+    assert_equal bulletin.user, user
     assert bulletin.on_moderate?
   end
 
@@ -77,7 +77,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     end
 
     bulletin = Bulletin.last
-    assert_equal bulletin.name, params[:bulletin][:name]
+    assert_equal bulletin.title, params[:bulletin][:title]
     assert bulletin.draft?
   end
 
@@ -105,7 +105,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     patch bulletin_path @bulletin, params: params
 
     @bulletin.reload
-    assert_equal @bulletin.name, params[:bulletin][:name]
+    assert_equal @bulletin.title, params[:bulletin][:title]
     assert_equal @bulletin.category, new_category
     assert @bulletin.on_moderate?
   end
@@ -115,7 +115,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     params = {
       bulletin: {
-        name: generate(:name)
+        title: generate(:title)
       }
     }
 
@@ -127,7 +127,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   test '#update (guest must be redirected to root path)' do
     params = {
       bulletin: {
-        name: generate(:name)
+        title: generate(:title)
       }
     }
 

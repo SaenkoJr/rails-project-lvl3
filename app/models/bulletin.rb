@@ -3,25 +3,22 @@
 class Bulletin < ApplicationRecord
   include AASM
 
-  belongs_to :author,
-             class_name: 'User',
-             foreign_key: 'user_id',
-             inverse_of: :bulletins
+  belongs_to :user, inverse_of: :bulletins
   belongs_to :category
   has_one_attached :photo
 
-  validates :name, presence: true
+  validates :title, presence: true
   validates :category, presence: true
   validates :photo,
             size: { less_than_or_equal_to: 5.megabyte },
             content_type: %i[jpeg jpg png]
 
-  ransack_alias :author, :author_first_name_or_author_last_name_or_author_email
+  ransack_alias :user, :user_first_name_or_user_last_name_or_user_email
 
-  attribute :status_event, :string
-  before_save :set_status
+  attribute :state_event, :string
+  before_save :set_state
 
-  aasm :status, column: :status do
+  aasm :state, column: :state do
     state :draft, initial: true
     state :on_moderate
     state :published
@@ -55,7 +52,7 @@ class Bulletin < ApplicationRecord
     current_user.admin?
   end
 
-  def set_status
-    aasm(:status).fire(status_event) if status_event.present?
+  def set_state
+    aasm(:state).fire(state_event) if state_event.present?
   end
 end
