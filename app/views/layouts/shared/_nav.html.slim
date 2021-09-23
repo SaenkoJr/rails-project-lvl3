@@ -20,7 +20,7 @@
             li= link_to t('.sign_out'), session_path, method: :delete, class: 'dropdown-item'
       - else
         - if Rails.env.development?
-          li= link_to t('.github_auth'), auth_request_path(:developer), method: :post, class: 'nav-link link-dark'
+          li= link_to t('.github_auth'), request_auth_path(:developer), method: :post, class: 'nav-link link-dark'
         - else
-          li= link_to t('.github_auth'), auth_request_path(:github), method: :post, class: 'nav-link link-dark'
+          li= link_to t('.github_auth'), request_auth_path(:github), method: :post, class: 'nav-link link-dark'
 

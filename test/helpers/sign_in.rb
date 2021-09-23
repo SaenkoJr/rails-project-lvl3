@@ -12,7 +12,7 @@ module SignIn
       }
     )
 
-    get auth_callback_url(:github)
+    get callback_auth_url(:github)
     user
   end
 end
