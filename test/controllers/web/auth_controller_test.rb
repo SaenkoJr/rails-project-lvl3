@@ -11,7 +11,7 @@ class Web::AuthControllerTest < ActionDispatch::IntegrationTest
   test 'sign up via github' do
     github_params = OmniAuth.config.mock_auth[:github]
 
-    get auth_callback_url(:github)
+    get callback_auth_path(:github)
     assert_redirected_to root_path
 
     user = User.find_by(email: github_params[:info][:email])
