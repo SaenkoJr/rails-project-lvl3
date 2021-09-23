@@ -16,7 +16,6 @@
 * Yarn
 
 ### Commands
-
 ```sh
 make install
 make lint
