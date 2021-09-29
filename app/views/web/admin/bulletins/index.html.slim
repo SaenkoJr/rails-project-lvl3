@@ -12,6 +12,7 @@ hr
             input_html: { class: 'form-select' }
   = f.input :state_cont,
             collection: @states,
+            label_method: :human_name,
             label: t(:state_cont, scope: [:simple_form, :labels, :q, :bulletins]),
             input_html: { class: 'form-select' }
   .col-auto.d-flex.mb-3
@@ -41,5 +42,5 @@ table.table
         td= l bulletin.created_at
   tfoot
     tr
-      td colspan=4
+      td colspan=6
         = paginate @bulletins

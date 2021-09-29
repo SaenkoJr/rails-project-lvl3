@@ -5,7 +5,7 @@ hr
 = search_form_for @q, url: admin_root_path, html: { class: 'row row-cols-4' } do |f|
   = f.input :email_cont, label: t(:email_cont, scope: [:simple_form, :labels, :q, :users])
   = f.input :name_cont, label: t(:name_cont, scope: [:simple_form, :labels, :q, :users]),
-                        placeholder: t(:name_cont, scope: [:simple_form, :placeholders, :q, :users]) 
+                        placeholder: t(:name_cont, scope: [:simple_form, :placeholders, :q, :users])
   .col-auto.d-flex.mb-3
     .mt-auto
       = f.button :submit, class: 'btn btn-outline-secondary me-3'
@@ -38,6 +38,6 @@ table.table
                                 class: 'link-danger'
   tfoot
     tr
-      td colspan=6
+      td colspan=7
         = paginate @users
 

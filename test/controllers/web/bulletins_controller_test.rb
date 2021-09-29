@@ -61,7 +61,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_equal bulletin.title, params[:bulletin][:title]
     assert_equal bulletin.category, category
     assert_equal bulletin.user, user
-    assert bulletin.on_moderate?
+    assert bulletin.under_moderation?
   end
 
   test '#create (save as draft)' do
@@ -107,7 +107,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     @bulletin.reload
     assert_equal @bulletin.title, params[:bulletin][:title]
     assert_equal @bulletin.category, new_category
-    assert @bulletin.on_moderate?
+    assert @bulletin.under_moderation?
   end
 
   test '#update (non author must be redirected to root path)' do

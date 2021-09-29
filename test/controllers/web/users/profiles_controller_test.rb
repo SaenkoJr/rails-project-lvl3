@@ -2,15 +2,22 @@
 
 require 'test_helper'
 
-class Web::UsersControllerTest < ActionDispatch::IntegrationTest
+class Web::Users::ProfilesControllerTest < ActionDispatch::IntegrationTest
   test '#show (signed in user)' do
     user = sign_in_as_with_github :one
-    get user_path user
+    get profile_path user
     assert_response :success
   end
 
   test '#show (guest must be redirected)' do
-    get user_path users(:two)
+    get profile_path users(:two)
+    assert_redirected_to root_path
+  end
+
+  test '#edit (guest must be redirected)' do
+    user = users(:two)
+
+    get profile_path(user)
     assert_redirected_to root_path
   end
 
@@ -19,17 +26,7 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
 
     user_attrs = attributes_for(:user)
 
-    patch user_path(user), params: { user: user_attrs }
-    assert_redirected_to root_path
-  end
-
-  test '#update (only current user can update his info)' do
-    sign_in_as_with_github(:one)
-    user = users(:two)
-
-    user_attrs = attributes_for(:user)
-
-    patch user_path(user), params: { user: user_attrs }
+    patch profile_path(user), params: { user: user_attrs }
     assert_redirected_to root_path
   end
 
@@ -38,7 +35,7 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
 
     user_attrs = attributes_for(:user)
 
-    patch user_path(user), params: { user: user_attrs }
+    patch profile_path, params: { user: user_attrs }
 
     user.reload
     assert_equal user.first_name, user_attrs[:first_name]
@@ -49,18 +46,7 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
     user = sign_in_as_with_github :one
 
     assert_difference('User.count', -1) do
-      delete user_path user
-    end
-
-    assert_redirected_to root_path
-  end
-
-  test '#destroy (only current user can delete)' do
-    sign_in_as_with_github :one
-    user = users(:two)
-
-    assert_no_difference('User.count') do
-      delete user_path user
+      delete profile_path
     end
 
     assert_redirected_to root_path
@@ -70,7 +56,7 @@ class Web::UsersControllerTest < ActionDispatch::IntegrationTest
     user = users(:one)
 
     assert_no_difference('User.count') do
-      delete user_path user
+      delete profile_path
     end
 
     assert_redirected_to root_path

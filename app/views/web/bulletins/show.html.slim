@@ -2,7 +2,7 @@
   .col-sm-10
     .row.gx-4
       .col-8
-        h2.mb-4= @bulletin.state
+        h2.mb-4= @bulletin.title
         dl.row
           - if author_or_admin? @bulletin
             dt.col-sm-3.mb-4 #{t('.state')}:

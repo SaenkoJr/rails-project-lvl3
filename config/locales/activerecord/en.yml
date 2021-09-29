@@ -15,7 +15,7 @@ en:
         created_at: Created at
         state_event: Change status
         state/draft: Draft
-        state/on_moderate: On moderate
+        state/under_moderation: Under moderation
         state/rejected: Rejected
         state/archived: Archived
       user:

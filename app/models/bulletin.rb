@@ -20,37 +20,33 @@ class Bulletin < ApplicationRecord
 
   aasm :state, column: :state do
     state :draft, initial: true
-    state :on_moderate
+    state :under_moderation
     state :published
     state :rejected
     state :archived
 
     event :send_to_moderate do
-      transitions from: %i[draft published on_moderate rejected], to: :on_moderate
+      transitions from: %i[draft published rejected], to: :under_moderation
     end
 
     event :publish do
-      transitions from: :on_moderate, to: :published
+      transitions from: :under_moderation, to: :published
     end
 
     event :reject do
-      transitions from: :on_moderate, to: :rejected
+      transitions from: :under_moderation, to: :rejected
     end
 
     event :hide do
-      transitions from: %i[draft rejected], to: :draft
+      transitions from: %i[draft published rejected], to: :draft
     end
 
     event :archive do
-      transitions from: %i[draft on_moderate published rejected], to: :archived
+      transitions from: %i[draft under_moderation published rejected], to: :archived
     end
   end
 
   private
-
-  def admin?
-    current_user.admin?
-  end
 
   def set_state
     aasm(:state).fire(state_event) if state_event.present?

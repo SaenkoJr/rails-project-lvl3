@@ -2,7 +2,7 @@
   .col-sm-9
     h1.mb-4= t('.heading')
 
-    = simple_form_for @user do |f|
+    = simple_form_for @user, url: profile_path do |f|
       = f.input :email
       = f.input :first_name
       = f.input :last_name

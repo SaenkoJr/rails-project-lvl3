@@ -1,4 +1,6 @@
 = search_form_for @q, html: { class: 'row row-cols-4' } do |f|
+  = f.input :title_cont,
+            label: t(:title_cont, scope: [:simple_form, :labels, :q, :bulletins])
   = f.input :user_cont,
             label: t(:author_cont, scope: [:simple_form, :labels, :q, :bulletins]),
             placeholder: t(:author_cont, scope: [:simple_form, :placeholders, :q, :bulletins])

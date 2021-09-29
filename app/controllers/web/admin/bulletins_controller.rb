@@ -12,7 +12,6 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     @categories = Category.all
     @states = Bulletin.aasm(:state)
                       .states
-                      .map(&:human_name)
   end
 
   def edit; end

@@ -9,9 +9,12 @@ Rails.application.routes.draw do
 
     resource :session, only: %i[destroy]
 
-    resources :users, except: %i[new create]
     resources :bulletins do
       patch :archive, on: :member
+    end
+
+    scope module: :users do
+      resource :profile, except: %i[new create]
     end
 
     namespace :admin do

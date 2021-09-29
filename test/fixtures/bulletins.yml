@@ -18,4 +18,4 @@ without_description:
   title: <%= Faker::Lorem.sentence(word_count: 4) %>
   user: one
   category: three
-  state: on_moderate
+  state: under_moderation
