@@ -43,7 +43,7 @@ class Web::Users::ProfilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#destroy' do
-    user = sign_in_as_with_github :one
+    sign_in_as_with_github :one
 
     assert_difference('User.count', -1) do
       delete profile_path
@@ -53,8 +53,6 @@ class Web::Users::ProfilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#destroy (guest must be redirected)' do
-    user = users(:one)
-
     assert_no_difference('User.count') do
       delete profile_path
     end
