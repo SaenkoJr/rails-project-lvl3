@@ -142,7 +142,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     patch archive_bulletin_path @published
 
     @published.reload
-    assert @published.archive?
+    assert @published.archived?
     assert_redirected_to @published
   end
 
