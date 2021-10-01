@@ -112,6 +112,6 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     bulletin = bulletins(:two)
 
     patch archive_admin_bulletin_path bulletin
-    assert bulletin.reload.archived?
+    assert bulletin.reload.archive?
   end
 end
