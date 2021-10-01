@@ -19,3 +19,15 @@ without_description:
   user: one
   category: three
   state: under_moderation
+
+under_moderation:
+  title: <%= Faker::Lorem.sentence(word_count: 4) %>
+  user: one
+  category: three
+  state: under_moderation
+
+rejected:
+  title: <%= Faker::Lorem.sentence(word_count: 4) %>
+  user: one
+  category: three
+  state: rejected

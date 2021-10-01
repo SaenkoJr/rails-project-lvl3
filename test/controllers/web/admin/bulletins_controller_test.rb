@@ -63,30 +63,55 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test 'publish bulletin' do
-    sign_in_as_with_github :admin
-    bulletin = bulletins(:without_description)
+  test 'publish bulletin (non admin cant aprove)' do
+    bulletin = bulletins(:under_moderation)
 
-    params = { bulletin: { state_event: :publish } }
-    patch admin_bulletin_path(bulletin), params: params
+    patch publish_admin_bulletin_path bulletin
+
+    assert bulletin.reload.under_moderation?
+    assert_redirected_to root_path
+  end
+
+  test 'publish bulletin (as admin)' do
+    sign_in_as_with_github :admin
+    bulletin = bulletins(:under_moderation)
+
+    patch publish_admin_bulletin_path bulletin
     assert bulletin.reload.published?
   end
 
-  test 'reject bulletin' do
-    sign_in_as_with_github :admin
-    bulletin = bulletins(:without_description)
+  test 'reject bulletin (non admin cant reject)' do
+    bulletin = bulletins(:under_moderation)
 
-    params = { bulletin: { state_event: :reject } }
-    patch admin_bulletin_path(bulletin), params: params
+    patch reject_admin_bulletin_path bulletin
+
+    assert bulletin.reload.under_moderation?
+    assert_redirected_to root_path
+  end
+
+  test 'reject bulletin (as admin)' do
+    sign_in_as_with_github :admin
+    bulletin = bulletins(:under_moderation)
+
+    patch reject_admin_bulletin_path bulletin
+
     assert bulletin.reload.rejected?
   end
 
-  test 'archive bulletin' do
+  test 'archive bulletin (non admin cant archive)' do
+    bulletin = bulletins(:under_moderation)
+
+    patch archive_admin_bulletin_path bulletin
+
+    assert bulletin.reload.under_moderation?
+    assert_redirected_to root_path
+  end
+
+  test 'archive bulletin (as admin)' do
     sign_in_as_with_github :admin
     bulletin = bulletins(:two)
 
-    params = { bulletin: { state_event: :archive } }
-    patch admin_bulletin_path(bulletin), params: params
+    patch archive_admin_bulletin_path bulletin
     assert bulletin.reload.archived?
   end
 end

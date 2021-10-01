@@ -15,9 +15,6 @@ class Bulletin < ApplicationRecord
 
   ransack_alias :user, :user_first_name_or_user_last_name_or_user_email
 
-  attribute :state_event, :string
-  before_save :set_state
-
   aasm :state, column: :state do
     state :draft, initial: true
     state :under_moderation
@@ -44,11 +41,5 @@ class Bulletin < ApplicationRecord
     event :archive do
       transitions from: %i[draft under_moderation published rejected], to: :archived
     end
-  end
-
-  private
-
-  def set_state
-    aasm(:state).fire(state_event) if state_event.present?
   end
 end

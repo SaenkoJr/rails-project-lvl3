@@ -21,7 +21,13 @@ Rails.application.routes.draw do
       root 'home#index'
       resources :users, only: %i[edit update destroy]
       resources :categories, except: :show
-      resources :bulletins, only: %i[index edit update destroy]
+      resources :bulletins, only: %i[index edit update destroy] do
+        member do
+          patch :publish
+          patch :reject
+          patch :archive
+        end
+      end
     end
   end
 end

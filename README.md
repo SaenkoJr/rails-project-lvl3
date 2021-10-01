@@ -17,7 +17,7 @@
 
 ### Commands
 ```sh
-make install
+make setup
 make lint
 make test
 make start

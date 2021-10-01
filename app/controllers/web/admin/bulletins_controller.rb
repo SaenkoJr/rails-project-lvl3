@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Web::Admin::BulletinsController < Web::Admin::ApplicationController
-  before_action :set_bulletin, only: %i[edit update]
+  before_action :set_bulletin, only: %i[edit update publish reject archive]
 
   def index
     @q = Bulletin.ransack(ransack_params)
@@ -24,6 +24,33 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     end
   end
 
+  def publish
+    if @bulletin.may_publish?
+      @bulletin.publish!
+      redirect_to @bulletin, notice: t('.success')
+    else
+      redirect_to @bulletin, alert: t('.failed')
+    end
+  end
+
+  def reject
+    if @bulletin.may_reject?
+      @bulletin.reject!
+      redirect_to @bulletin, notice: t('.success')
+    else
+      redirect_to @bulletin, alert: t('.failed')
+    end
+  end
+
+  def archive
+    if @bulletin.may_archive?
+      @bulletin.archive!
+      redirect_to @bulletin, notice: t('.success')
+    else
+      redirect_to @bulletin, alert: t('.failed')
+    end
+  end
+
   private
 
   def set_bulletin
@@ -31,6 +58,6 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   end
 
   def bulletin_params
-    params.require(:bulletin).permit(:title, :description, :category_id, :photo, :state_event)
+    params.require(:bulletin).permit(:title, :description, :category_id, :photo)
   end
 end
