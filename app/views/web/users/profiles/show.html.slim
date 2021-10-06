@@ -27,12 +27,15 @@ h1.mb-4= t('.heading')
     hr
     = search_form_for @q, html: { class: 'row row-cols-4' }, url: profile_path(@user) do |f|
       = f.input :title_cont,
+                required: false,
                 label: t(:title_cont, scope: [:simple_form, :labels, :q, :bulletins])
       = f.input :state_cont,
+                required: false,
                 collection: @states,
                 label: t(:state_cont, scope: [:simple_form, :labels, :q, :bulletins]),
                 input_html: { class: 'form-select form-control-sm' }
       = f.input :category_name_cont,
+                required: false,
                 collection: @categories,
                 value_method: :name,
                 label: t(:category_cont, scope: [:simple_form, :labels, :q, :bulletins]),

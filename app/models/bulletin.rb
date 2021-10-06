@@ -13,8 +13,6 @@ class Bulletin < ApplicationRecord
             size: { less_than_or_equal_to: 5.megabyte },
             content_type: %i[jpeg jpg png]
 
-  ransack_alias :user, :user_first_name_or_user_last_name_or_user_email
-
   aasm :state, column: :state do
     state :draft, initial: true
     state :under_moderation

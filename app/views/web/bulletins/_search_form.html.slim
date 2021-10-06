@@ -1,10 +1,14 @@
 = search_form_for @q, html: { class: 'row row-cols-4' } do |f|
   = f.input :title_cont,
+            required: false,
             label: t(:title_cont, scope: [:simple_form, :labels, :q, :bulletins])
-  = f.input :user_cont,
+  = f.input :user_first_name_or_user_last_name_or_user_email_cont,
+            required: false,
+            as: :search,
             label: t(:author_cont, scope: [:simple_form, :labels, :q, :bulletins]),
             placeholder: t(:author_cont, scope: [:simple_form, :placeholders, :q, :bulletins])
   = f.input :category_name_cont,
+            required: false,
             collection: @categories,
             value_method: :name,
             label: t(:category_cont, scope: [:simple_form, :labels, :q, :bulletins]),
