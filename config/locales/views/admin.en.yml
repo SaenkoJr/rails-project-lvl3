@@ -24,6 +24,16 @@ en:
           heading: Update bulletin
         update:
           success: Bulletin was updated
+          failed: Cannot updated bulletin
+        publish:
+          success: Bulletin was published
+          failed: Cannot publish bulletin
+        reject:
+          success: Bulletin was rejected
+          failed: Cannot reject bulletin
+        archive:
+          success: Bulletin was archived
+          failed: Cannot archive bulletin
       users:
         edit:
           heading: Update user info
