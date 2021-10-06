@@ -1,9 +1,6 @@
 en:
   web:
     admin:
-      home:
-        index:
-          heading: Users
       categories:
         index:
           heading: Categories
@@ -35,6 +32,8 @@ en:
           success: Bulletin was archived
           failed: Cannot archive bulletin
       users:
+        index:
+          heading: Users
         edit:
           heading: Update user info
         update:

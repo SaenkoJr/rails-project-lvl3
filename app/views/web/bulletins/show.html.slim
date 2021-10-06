@@ -25,9 +25,7 @@
 
       hr
 
-    - if current_user.admin? && !@bulletin.archived?
-      = link_to t(:edit), edit_admin_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
-    - elsif policy(@bulletin).edit? && !@bulletin.archived?
+    - if policy(@bulletin).edit? && !@bulletin.archived?
       = link_to t(:edit), edit_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
 
     - if policy(@bulletin).archive?

@@ -27,27 +27,27 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   def publish
     if @bulletin.may_publish?
       @bulletin.publish!
-      redirect_to @bulletin, notice: t('.success')
+      redirect_to edit_admin_bulletin_path(@bulletin), notice: t('.success')
     else
-      redirect_to @bulletin, alert: t('.failed')
+      redirect_to edit_admin_bulletin_path(@bulletin), alert: t('.failed')
     end
   end
 
   def reject
     if @bulletin.may_reject?
       @bulletin.reject!
-      redirect_to @bulletin, notice: t('.success')
+      redirect_to edit_admin_bulletin_path(@bulletin), notice: t('.success')
     else
-      redirect_to @bulletin, alert: t('.failed')
+      redirect_to edit_admin_bulletin_path(@bulletin), alert: t('.failed')
     end
   end
 
   def archive
     if @bulletin.may_archive?
       @bulletin.archive!
-      redirect_to @bulletin, notice: t('.success')
+      redirect_to edit_admin_bulletin_path(@bulletin), notice: t('.success')
     else
-      redirect_to @bulletin, alert: t('.failed')
+      redirect_to edit_admin_bulletin_path(@bulletin), alert: t('.failed')
     end
   end
 

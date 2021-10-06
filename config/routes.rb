@@ -18,8 +18,8 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-      root 'home#index'
-      resources :users, only: %i[edit update destroy]
+      root 'bulletins#index'
+      resources :users, only: %i[index edit update destroy]
       resources :categories, except: :show
       resources :bulletins, only: %i[index edit update destroy] do
         member do

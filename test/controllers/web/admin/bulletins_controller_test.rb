@@ -78,6 +78,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     patch publish_admin_bulletin_path bulletin
     assert bulletin.reload.published?
+    assert_redirected_to edit_admin_bulletin_path(bulletin)
   end
 
   test 'reject bulletin (non admin cant reject)' do
@@ -96,6 +97,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     patch reject_admin_bulletin_path bulletin
 
     assert bulletin.reload.rejected?
+    assert_redirected_to edit_admin_bulletin_path(bulletin)
   end
 
   test 'archive bulletin (non admin cant archive)' do
@@ -113,5 +115,6 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     patch archive_admin_bulletin_path bulletin
     assert bulletin.reload.archived?
+    assert_redirected_to edit_admin_bulletin_path(bulletin)
   end
 end

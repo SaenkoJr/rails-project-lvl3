@@ -7,6 +7,17 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     @user = users(:one)
   end
 
+  test '#index (admin)' do
+    sign_in_as_with_github :admin
+    get admin_users_path
+    assert_response :success
+  end
+
+  test '#index (non admin cant get index page)' do
+    get admin_users_path
+    assert_redirected_to root_path
+  end
+
   test '#edit (as admin)' do
     sign_in_as_with_github :admin
     get edit_admin_user_path(@user)
@@ -33,6 +44,7 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     @user.reload
     assert_response :redirect
     assert_equal @user.first_name, new_first_name
+    assert_redirected_to edit_admin_user_path(@user)
   end
 
   test '#update (non admin cant update user)' do
@@ -59,7 +71,7 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
       delete admin_user_path users(:two)
     end
 
-    assert_redirected_to admin_root_path
+    assert_redirected_to admin_users_path
   end
 
   test '#delete (non admin cant delete user)' do
