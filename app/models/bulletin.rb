@@ -32,7 +32,7 @@ class Bulletin < ApplicationRecord
       transitions from: :under_moderation, to: :rejected
     end
 
-    event :hide do
+    event :make_draft do
       transitions from: %i[draft published rejected], to: :draft
     end
 

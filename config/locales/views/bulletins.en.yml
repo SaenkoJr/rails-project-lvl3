@@ -5,7 +5,7 @@ en:
         sort_by: Sort by
       form:
         moderate: Send to moderation
-        hide: Save as draft
+        make_draft: Save as draft
       show:
         description: Description
         category: Category

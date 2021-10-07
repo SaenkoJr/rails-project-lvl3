@@ -65,7 +65,7 @@ class Web::BulletinsController < Web::ApplicationController
 
   def change_state(bulletin)
     bulletin.send_to_moderate if params[:moderate]
-    bulletin.hide if params[:hide]
+    bulletin.make_draft if params[:make_draft]
   end
 
   def bulletin_params

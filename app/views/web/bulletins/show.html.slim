@@ -25,7 +25,7 @@
 
       hr
 
-    - if policy(@bulletin).edit? && !@bulletin.archived?
+    - if policy(@bulletin).edit?
       = link_to t(:edit), edit_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
 
     - if policy(@bulletin).archive?
