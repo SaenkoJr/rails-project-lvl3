@@ -14,10 +14,17 @@ class Web::Users::ProfilesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
+  test '#edit (signed in user)' do
+    user = sign_in_as_with_github :one
+
+    get edit_profile_path(user)
+    assert_response :success
+  end
+
   test '#edit (guest must be redirected)' do
     user = users(:two)
 
-    get profile_path(user)
+    get edit_profile_path(user)
     assert_redirected_to root_path
   end
 
