@@ -50,4 +50,14 @@ class ApplicationPolicy
 
     attr_reader :user, :scope
   end
+
+  private
+
+  def admin?
+    user.admin?
+  end
+
+  def author_or_admin?
+    record.user_id == user&.id || user.admin?
+  end
 end

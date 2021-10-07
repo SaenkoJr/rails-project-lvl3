@@ -22,8 +22,4 @@ class UserPolicy < ApplicationPolicy
   def current_user?
     record.id == user.id
   end
-
-  def admin?
-    user.admin?
-  end
 end
