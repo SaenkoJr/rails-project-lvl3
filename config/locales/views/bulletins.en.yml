@@ -19,5 +19,7 @@ en:
         success: Post was created
       update:
         success: Post was updated
+      send_to_moderate:
+        success: Post was sent to moderation
       archive:
         success: Post was archived

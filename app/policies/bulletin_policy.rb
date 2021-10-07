@@ -21,6 +21,10 @@ class BulletinPolicy < ApplicationPolicy
     author_or_admin?
   end
 
+  def send_to_moderate?
+    author? && !record.archived?
+  end
+
   def archive?
     author_or_admin? && !record.archived?
   end

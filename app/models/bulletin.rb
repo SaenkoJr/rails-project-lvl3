@@ -21,7 +21,7 @@ class Bulletin < ApplicationRecord
     state :archived
 
     event :send_to_moderate do
-      transitions from: %i[draft under_moderation published rejected], to: :under_moderation
+      transitions from: %i[draft rejected], to: :under_moderation
     end
 
     event :publish do
@@ -33,7 +33,7 @@ class Bulletin < ApplicationRecord
     end
 
     event :make_draft do
-      transitions from: %i[draft published rejected], to: :draft
+      transitions from: %i[under_moderation published rejected], to: :draft
     end
 
     event :archive do

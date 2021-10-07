@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
     resources :bulletins do
       patch :archive, on: :member
+      patch :send_to_moderate, on: :member
     end
 
     scope module: :users do

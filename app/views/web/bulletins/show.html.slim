@@ -28,6 +28,12 @@
     - if policy(@bulletin).edit?
       = link_to t(:edit), edit_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-primary me-2'
 
+    - if policy(@bulletin).send_to_moderate? && @bulletin.may_send_to_moderate?
+      = link_to t(:moderate),
+                send_to_moderate_bulletin_path(@bulletin),
+                method: :patch,
+                class: 'btn btn-sm btn-outline-success me-2'
+
     - if policy(@bulletin).archive?
       = link_to t(:archive), archive_bulletin_path(@bulletin),
                           method: :patch,

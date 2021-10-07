@@ -39,6 +39,7 @@ en:
   destroy: Delete
   destroy_confirmation: Are you sure?
   archive: Archive
+  moderate: To moderation
   archive_confirmation: Are you sure?
   sign_in: Sign in
   sign_up: Sign up

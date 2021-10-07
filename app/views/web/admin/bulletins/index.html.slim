@@ -37,6 +37,7 @@ table.table
       th= sort_link(@q, 'category_name')
       th= sort_link(@q, 'state')
       th= sort_link(@q, 'created_at')
+      th
   tbody
     - @bulletins.each do |bulletin|
       tr
@@ -45,7 +46,24 @@ table.table
         td= link_to bulletin.user.email, edit_admin_user_path(bulletin.user)
         td= bulletin.category.name
         td= render partial: 'web/shared/status_badge', locals: { state: bulletin.aasm(:state) }
-        td= l bulletin.created_at
+        td= l(bulletin.created_at)
+        td
+          - if bulletin.may_publish?
+            = link_to t(:publish),
+                      publish_admin_bulletin_path(bulletin),
+                      method: :patch,
+                      class: 'link-success me-2'
+          - if bulletin.may_reject?
+            = link_to t(:reject),
+                      reject_admin_bulletin_path(bulletin),
+                      method: :patch,
+                      class: 'link-danger me-2'
+          - if bulletin.may_archive?
+            = link_to t(:archive),
+                      archive_admin_bulletin_path(bulletin),
+                      method: :patch,
+                      data: { confirm: t(:destroy_confirmation) },
+                      class: 'link-danger'
   tfoot
     tr
       td colspan=6

@@ -46,7 +46,6 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     category = categories(:one)
 
     params = {
-      moderate: true,
       bulletin: attributes_for(
         :with_photo,
         category_id: category.id
@@ -61,23 +60,6 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     assert_equal bulletin.title, params[:bulletin][:title]
     assert_equal bulletin.category, category
     assert_equal bulletin.user, user
-    assert bulletin.under_moderation?
-  end
-
-  test '#create (save as draft)' do
-    sign_in_as_with_github(:one)
-    category = categories(:one)
-
-    params = {
-      bulletin: attributes_for(:bulletin, category_id: category.id)
-    }
-
-    assert_difference('Bulletin.count', +1) do
-      post bulletins_path, params: params
-    end
-
-    bulletin = Bulletin.last
-    assert_equal bulletin.title, params[:bulletin][:title]
     assert bulletin.draft?
   end
 
@@ -98,7 +80,6 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
 
     new_category = categories(:two)
     params = {
-      moderate: true,
       bulletin: attributes_for(:bulletin, category_id: new_category.id)
     }
 
@@ -107,7 +88,24 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     @bulletin.reload
     assert_equal @bulletin.title, params[:bulletin][:title]
     assert_equal @bulletin.category, new_category
-    assert @bulletin.under_moderation?
+    assert @bulletin.draft?
+  end
+
+  test '#update (save as draft)' do
+    sign_in_as_with_github(:one)
+    bulletin = bulletins(:rejected)
+    category = categories(:one)
+
+    params = {
+      make_draft: true,
+      bulletin: attributes_for(:bulletin, category_id: category.id)
+    }
+
+    patch bulletin_path(bulletin), params: params
+
+    bulletin.reload
+    assert_equal bulletin.title, params[:bulletin][:title]
+    assert bulletin.draft?
   end
 
   test '#update (non author must be redirected to root path)' do

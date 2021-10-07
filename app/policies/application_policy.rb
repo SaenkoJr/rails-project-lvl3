@@ -53,6 +53,10 @@ class ApplicationPolicy
 
   private
 
+  def author?
+    record.user_id == user&.id
+  end
+
   def admin?
     user.admin?
   end

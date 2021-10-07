@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < Web::ApplicationController
-  before_action :set_bulletin, only: %i[show edit update archive]
+  before_action :set_bulletin, only: %i[show edit update send_to_moderate archive]
 
   after_action :verify_authorized, except: %i[index show]
 
@@ -50,12 +50,23 @@ class Web::BulletinsController < Web::ApplicationController
     end
   end
 
+  def send_to_moderate
+    authorize @bulletin
+
+    if @bulletin.may_send_to_moderate?
+      @bulletin.send_to_moderate!
+      redirect_back(fallback_location: bulletin_path(@bulletin), notice: t('.success'))
+    else
+      redirect_to @bulletin, status: :unprocessable_entity
+    end
+  end
+
   def archive
     authorize @bulletin
 
     if @bulletin.may_archive?
       @bulletin.archive!
-      redirect_to @bulletin, notice: t('.success')
+      redirect_back(fallback_location: bulletin_path(@bulletin), notice: t('.success'))
     else
       redirect_to @bulletin, status: :unprocessable_entity
     end
@@ -64,7 +75,6 @@ class Web::BulletinsController < Web::ApplicationController
   private
 
   def change_state(bulletin)
-    bulletin.send_to_moderate if params[:moderate]
     bulletin.make_draft if params[:make_draft]
   end
 
