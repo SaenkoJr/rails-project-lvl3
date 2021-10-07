@@ -14,7 +14,7 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def update?
-    author_or_admin?
+    author_or_admin? && !record.archived?
   end
 
   def destroy?
@@ -25,9 +25,11 @@ class BulletinPolicy < ApplicationPolicy
     author_or_admin? && !record.archived?
   end
 
-  private
+  def publish?
+    admin?
+  end
 
-  def author_or_admin?
-    record.user_id == user&.id || user.admin?
+  def reject?
+    admin?
   end
 end
