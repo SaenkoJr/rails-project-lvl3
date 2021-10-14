@@ -45,17 +45,16 @@ class Web::Users::ProfilesControllerTest < ActionDispatch::IntegrationTest
     patch profile_path, params: { user: user_attrs }
 
     user.reload
-    assert_equal user.first_name, user_attrs[:first_name]
-    assert_equal user.last_name, user_attrs[:last_name]
+    assert { user.first_name == user_attrs[:first_name] }
+    assert { user.last_name == user_attrs[:last_name] }
   end
 
   test '#destroy' do
-    sign_in_as_with_github :one
+    user = sign_in_as_with_github :one
 
-    assert_difference('User.count', -1) do
-      delete profile_path
-    end
+    delete profile_path
 
+    assert { !User.exists?(user[:id]) }
     assert_redirected_to root_path
   end
 

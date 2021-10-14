@@ -52,15 +52,14 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
       )
     }
 
-    assert_difference('Bulletin.count', +1) do
-      post bulletins_path, params: params
-    end
+    post bulletins_path, params: params
 
-    bulletin = Bulletin.last
-    assert_equal bulletin.title, params[:bulletin][:title]
-    assert_equal bulletin.category, category
-    assert_equal bulletin.user, user
-    assert bulletin.draft?
+    bulletin = Bulletin.find_by(title: params[:bulletin][:title])
+
+    assert { bulletin }
+    assert { bulletin.category == category }
+    assert { bulletin.user == user }
+    assert { bulletin.draft? }
   end
 
   test '#create (guest must be redirected to root path)' do
@@ -70,7 +69,9 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
       bulletin: attributes_for(:bulletin, category_id: category.id)
     }
 
-    post bulletins_path, params: params
+    assert_no_difference('Bulletin.count') do
+      post bulletins_path, params: params
+    end
 
     assert_redirected_to root_path
   end
@@ -86,9 +87,9 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     patch bulletin_path @bulletin, params: params
 
     @bulletin.reload
-    assert_equal @bulletin.title, params[:bulletin][:title]
-    assert_equal @bulletin.category, new_category
-    assert @bulletin.draft?
+    assert { @bulletin.title == params[:bulletin][:title] }
+    assert { @bulletin.category == new_category }
+    assert { @bulletin.draft? }
   end
 
   test '#update (save as draft)' do
@@ -104,8 +105,8 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     patch bulletin_path(bulletin), params: params
 
     bulletin.reload
-    assert_equal bulletin.title, params[:bulletin][:title]
-    assert bulletin.draft?
+    assert { bulletin.title == params[:bulletin][:title] }
+    assert { bulletin.draft? }
   end
 
   test '#update (non author must be redirected to root path)' do
@@ -140,7 +141,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     patch archive_bulletin_path @published
 
     @published.reload
-    assert @published.archived?
+    assert { @published.archived? }
     assert_redirected_to @published
   end
 
@@ -150,7 +151,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     patch archive_bulletin_path @published
 
     @published.reload
-    assert @published.published?
+    assert { @published.published? }
     assert_redirected_to root_path
   end
 
@@ -158,7 +159,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest # rubocop:d
     patch archive_bulletin_path @published
 
     @published.reload
-    assert @published.published?
+    assert { @published.published? }
     assert_redirected_to root_path
   end
 end

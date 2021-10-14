@@ -37,12 +37,11 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
       category: attributes_for(:category)
     }
 
-    assert_difference('Category.count', +1) do
-      post admin_categories_path, params: params
-    end
+    post admin_categories_path, params: params
 
-    category = Category.last
-    assert_equal category.name, params[:category][:name]
+    category = Category.find_by params[:category]
+    assert { category }
+    assert { category.name == params[:category][:name] }
   end
 
   test '#create (non admin cant create category)' do
@@ -81,8 +80,8 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     patch admin_category_path(@category), params: params
 
     @category.reload
+    assert { @category.name == params[:category][:name] }
     assert_redirected_to admin_categories_path
-    assert_equal @category.name, params[:category][:name]
   end
 
   test '#update (non admin cant update user)' do
@@ -96,27 +95,25 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     patch admin_category_path(@category), params: params
 
     @category.reload
-    assert_equal @category.name, old_name
+    assert { @category.name == old_name }
     assert_redirected_to root_path
   end
 
   test '#destroy (as admin)' do
     sign_in_as_with_github :admin
 
-    assert_difference('Category.count', -1) do
-      delete admin_category_path(@category)
-    end
+    delete admin_category_path(@category)
 
+    assert { !Category.exists?(@category.id) }
     assert_redirected_to admin_categories_path
   end
 
   test '#destroy (non admin cant delete user)' do
     sign_in_as_with_github :one
 
-    assert_no_difference('Category.count') do
-      delete admin_category_path(@category)
-    end
+    delete admin_category_path(@category)
 
+    assert { Category.exists?(@category.id) }
     assert_redirected_to root_path
   end
 end

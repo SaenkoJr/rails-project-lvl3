@@ -43,7 +43,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     patch admin_bulletin_path(@bulletin), params: params
 
     @bulletin.reload
-    assert_equal @bulletin.title, params[:bulletin][:title]
+    assert { @bulletin.title == params[:bulletin][:title] }
   end
 
   test '#update (non admin cant update user)' do
@@ -59,7 +59,7 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     patch admin_bulletin_path(@bulletin), params: params
 
     @bulletin.reload
-    assert_equal @bulletin.title, old_title
+    assert { @bulletin.title == old_title }
     assert_redirected_to root_path
   end
 
@@ -68,7 +68,8 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     patch publish_admin_bulletin_path bulletin
 
-    assert bulletin.reload.under_moderation?
+    bulletin.reload
+    assert { bulletin.under_moderation? }
     assert_redirected_to root_path
   end
 
@@ -77,7 +78,9 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     bulletin = bulletins(:under_moderation)
 
     patch publish_admin_bulletin_path bulletin
-    assert bulletin.reload.published?
+
+    bulletin.reload
+    assert { bulletin.published? }
     assert_redirected_to edit_admin_bulletin_path(bulletin)
   end
 
@@ -86,7 +89,8 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     patch reject_admin_bulletin_path bulletin
 
-    assert bulletin.reload.under_moderation?
+    bulletin.reload
+    assert { bulletin.under_moderation? }
     assert_redirected_to root_path
   end
 
@@ -96,7 +100,8 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     patch reject_admin_bulletin_path bulletin
 
-    assert bulletin.reload.rejected?
+    bulletin.reload
+    assert { bulletin.rejected? }
     assert_redirected_to edit_admin_bulletin_path(bulletin)
   end
 
@@ -105,7 +110,8 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     patch archive_admin_bulletin_path bulletin
 
-    assert bulletin.reload.under_moderation?
+    bulletin.reload
+    assert { bulletin.under_moderation? }
     assert_redirected_to root_path
   end
 
@@ -114,7 +120,9 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     bulletin = bulletins(:two)
 
     patch archive_admin_bulletin_path bulletin
-    assert bulletin.reload.archived?
+
+    bulletin.reload
+    assert { bulletin.archived? }
     assert_redirected_to edit_admin_bulletin_path(bulletin)
   end
 end

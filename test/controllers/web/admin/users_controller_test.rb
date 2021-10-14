@@ -42,8 +42,7 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     }
 
     @user.reload
-    assert_response :redirect
-    assert_equal @user.first_name, new_first_name
+    assert { @user.first_name == new_first_name }
     assert_redirected_to edit_admin_user_path(@user)
   end
 
@@ -60,17 +59,17 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     }
 
     @user.reload
-    assert_equal @user.first_name, old_name
+    assert { @user.first_name == old_name }
     assert_redirected_to root_path
   end
 
   test '#delete (as admin)' do
     sign_in_as_with_github :admin
+    user = users(:two)
 
-    assert_difference('User.count', -1) do
-      delete admin_user_path users(:two)
-    end
+    delete admin_user_path user
 
+    assert { !User.exists?(user.id) }
     assert_redirected_to admin_users_path
   end
 
@@ -82,6 +81,7 @@ class Web::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
       delete admin_user_path user
     end
 
+    assert { User.exists?(user.id) }
     assert_redirected_to root_path
   end
 end
