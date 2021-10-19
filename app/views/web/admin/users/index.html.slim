@@ -4,10 +4,10 @@ hr
 
 = search_form_for @q, url: admin_users_path, html: { class: 'row row-cols-4' } do |f|
   = f.input :email_cont,
-            label: t(:email_cont, scope: [:simple_form, :labels, :q, :users])
+            label: t('.email_cont')
   = f.input :first_name_or_last_name_cont,
-            label: t(:name_cont, scope: [:simple_form, :labels, :q, :users]),
-            placeholder: t(:name_cont, scope: [:simple_form, :placeholders, :q, :users])
+            label: t('.name_cont_label'),
+            placeholder: t('.name_cont_placeholder')
   .col-auto.d-flex.mb-3
     .mt-auto
       = f.button :submit, class: 'btn btn-outline-secondary me-3'
@@ -34,10 +34,11 @@ table.table
         td= user.last_name
         td= user.admin?
         td= l user.created_at
-        td= link_to t(:delete), admin_user_path(user),
-                                method: :delete,
-                                data: { confirm: t(:destroy_confirmation) },
-                                class: 'link-danger'
+        td= link_to t(:delete),
+            admin_user_path(user),
+            method: :delete,
+            data: { confirm: t(:destroy_confirmation) },
+            class: 'link-danger'
   tfoot
     tr
       td colspan=7

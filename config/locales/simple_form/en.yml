@@ -5,24 +5,5 @@ en:
     required:
       text: 'required'
       mark: '*'
-    labels:
-      q:
-        categories:
-          name_cont: Find by name
-        users:
-          email_cont: Find by email
-          name_cont: Find by name
-        bulletins:
-          title_cont: Find by title
-          email_cont: Find by author email
-          category_cont: Find by category
-          state_cont: Find by status
-          author_cont: Find by author
-    placeholders:
-      q:
-        users:
-          name_cont: Enter first name or last name
-        bulletins:
-          author_cont: Enter first name, last name or email
     error_notification:
       default_message: "Please review the problems below:"

@@ -4,6 +4,7 @@ en:
       categories:
         index:
           heading: Categories
+          name_cont: Find by name
         new:
           heading: Create category
         edit:
@@ -17,6 +18,10 @@ en:
       bulletins:
         index:
           heading: Bulletins
+          title_cont: Find by title
+          email_cont: Find by author email
+          category_cont: Find by category
+          state_cont: Find by status
         edit:
           heading: Update bulletin
         update:
@@ -34,6 +39,9 @@ en:
       users:
         index:
           heading: Users
+          email_cont: Find by email
+          name_cont_label: Find by name
+          name_cont_placeholder: Enter first name or last name
         edit:
           heading: Update user info
         update:

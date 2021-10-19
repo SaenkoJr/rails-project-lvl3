@@ -4,18 +4,18 @@ hr
 
 = search_form_for @q, url: admin_bulletins_path, html: { class: 'row row-cols-4' } do |f|
   = f.input :title_cont,
-            label: t(:title_cont, scope: [:simple_form, :labels, :q, :bulletins])
+            label: t('.title_cont')
   = f.input :user_email_cont,
-            label: t(:email_cont, scope: [:simple_form, :labels, :q, :bulletins])
+            label: t('.email_cont')
   = f.input :category_name_cont,
             collection: @categories,
             value_method: :name,
-            label: t(:category_cont, scope: [:simple_form, :labels, :q, :bulletins]),
+            label: t('.category_cont'),
             input_html: { class: 'form-select' }
   = f.input :state_cont,
             collection: @states,
             label_method: :human_name,
-            label: t(:state_cont, scope: [:simple_form, :labels, :q, :bulletins]),
+            label: t('.state_cont'),
             input_html: { class: 'form-select' }
   .col-auto.d-flex.mb-3
     .mt-auto

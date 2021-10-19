@@ -3,6 +3,10 @@ en:
     bulletins:
       search_form:
         sort_by: Sort by
+        title_cont: Find by title
+        author_cont_label: Find by author
+        author_cont_placeholder: Enter first name, last name or email
+        category_cont: Find by category
       form:
         moderate: Send to moderation
         make_draft: Save as draft

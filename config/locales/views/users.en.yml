@@ -2,6 +2,10 @@ en:
   web:
     users:
       profiles:
+        bulletins:
+          title_cont: Find by title
+          state_cont: Find by status
+          category_cont: Find by category
         show:
           heading: Profile
           email: Email
