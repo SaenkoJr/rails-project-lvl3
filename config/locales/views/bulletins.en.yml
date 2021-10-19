@@ -10,6 +10,8 @@ en:
       form:
         moderate: Send to moderation
         make_draft: Save as draft
+      bulletin:
+        author: Author
       show:
         description: Description
         category: Category

@@ -18,5 +18,5 @@
               hr
               small.text-muted
                 |
-                  Author: #{show_full_name_or_email(bulletin.user)}
+                  #{t('.author')}: #{show_full_name_or_email(bulletin.user)}
               small.text-muted Created at: #{l(bulletin.created_at)}
