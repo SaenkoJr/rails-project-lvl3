@@ -6,7 +6,6 @@ hr
 
 = search_form_for @q, url: admin_categories_path, html: { class: 'row row-cols-4' } do |f|
   = f.input :name_cont,
-            required: false,
             label: t(:name_cont, scope: [:simple_form, :labels, :q, :categories])
   .col-auto.d-flex.mb-3
     .mt-auto

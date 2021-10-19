@@ -4,10 +4,8 @@ hr
 
 = search_form_for @q, url: admin_users_path, html: { class: 'row row-cols-4' } do |f|
   = f.input :email_cont,
-            required: false,
             label: t(:email_cont, scope: [:simple_form, :labels, :q, :users])
   = f.input :first_name_or_last_name_cont,
-            required: false,
             label: t(:name_cont, scope: [:simple_form, :labels, :q, :users]),
             placeholder: t(:name_cont, scope: [:simple_form, :placeholders, :q, :users])
   .col-auto.d-flex.mb-3
