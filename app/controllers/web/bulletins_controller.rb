@@ -3,7 +3,7 @@
 class Web::BulletinsController < Web::ApplicationController
   before_action :set_bulletin, only: %i[show edit update send_to_moderate archive]
 
-  after_action :verify_authorized, except: %i[index show]
+  after_action :verify_authorized, only: %i[new edit create update send_to_moderate archive]
 
   def index
     @q = Bulletin.published.ransack(ransack_params)

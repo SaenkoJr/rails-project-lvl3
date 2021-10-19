@@ -7,22 +7,24 @@ Rails.application.routes.draw do
     post 'auth/:provider', to: 'auth#request', as: :auth_request
     match 'auth/:provider/callback', to: 'auth#callback', via: %i[get post], as: :callback_auth
 
-    resource :session, only: %i[destroy]
+    resource :session, only: :destroy
 
-    resources :bulletins do
-      patch :archive, on: :member
-      patch :send_to_moderate, on: :member
+    resources :bulletins, only: %i[index new show edit create update] do
+      member do
+        patch :archive
+        patch :send_to_moderate
+      end
     end
 
     scope module: :users do
-      resource :profile, except: %i[new create]
+      resource :profile, only: %i[show edit update destroy]
     end
 
     namespace :admin do
       root 'bulletins#index'
       resources :users, only: %i[index edit update destroy]
-      resources :categories, except: :show
-      resources :bulletins, only: %i[index edit update destroy] do
+      resources :categories, only: %i[index new edit create update destroy]
+      resources :bulletins, only: %i[index edit update] do
         member do
           patch :publish
           patch :reject
