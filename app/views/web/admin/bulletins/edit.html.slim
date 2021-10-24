@@ -24,7 +24,8 @@ hr
               method: :patch,
               class: 'btn btn-danger me-2'
 
-  = f.button :submit, class: 'btn btn-primary me-2'
+  - if !@bulletin.archived?
+    = f.button :submit, class: 'btn btn-primary me-2'
 
   - if policy(@bulletin).archive?
     = link_to t(:archive),
