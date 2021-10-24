@@ -12,21 +12,21 @@ hr
   - if @bulletin.photo_attachment
     = image_tag @bulletin.photo.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail mt-2'
   hr
-  - if @bulletin.may_publish?
+  - if policy(@bulletin).publish?
     = link_to t(:publish),
               publish_admin_bulletin_path(@bulletin),
               method: :patch,
               class: 'btn btn-success me-2'
 
-  - if @bulletin.may_reject?
+  - if policy(@bulletin).reject?
     = link_to t(:reject),
               reject_admin_bulletin_path(@bulletin),
               method: :patch,
               class: 'btn btn-danger me-2'
 
-  = f.button :submit, class: 'btn btn-outline-primary me-2'
+  = f.button :submit, class: 'btn btn-primary me-2'
 
-  - if @bulletin.may_archive?
+  - if policy(@bulletin).archive?
     = link_to t(:archive),
               archive_admin_bulletin_path(@bulletin),
               method: :patch,

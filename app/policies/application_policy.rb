@@ -62,6 +62,6 @@ class ApplicationPolicy
   end
 
   def author_or_admin?
-    record.user_id == user&.id || user.admin?
+    author? || admin?
   end
 end

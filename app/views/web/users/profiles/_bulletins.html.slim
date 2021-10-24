@@ -36,12 +36,12 @@ table.table
           = render partial: 'web/shared/status_badge', locals: { state: bulletin.aasm(:state) }
         td.col-3= l(bulletin.created_at)
         td.col-3
-          - if bulletin.may_send_to_moderate?
+          - if policy(bulletin).send_to_moderate?
             = link_to t(:moderate),
                       send_to_moderate_bulletin_path(bulletin),
                       method: :patch,
                       class: 'me-2'
-          - if bulletin.may_archive?
+          - if policy(bulletin).archive?
             = link_to t(:archive),
                       archive_bulletin_path(bulletin),
                       method: :patch,

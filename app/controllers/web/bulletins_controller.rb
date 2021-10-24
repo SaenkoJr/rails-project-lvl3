@@ -53,8 +53,7 @@ class Web::BulletinsController < Web::ApplicationController
   def send_to_moderate
     authorize @bulletin
 
-    if @bulletin.may_send_to_moderate?
-      @bulletin.send_to_moderate!
+    if @bulletin.send_to_moderate!
       redirect_back(fallback_location: bulletin_path(@bulletin), notice: t('.success'))
     else
       redirect_to @bulletin, status: :unprocessable_entity
@@ -64,8 +63,7 @@ class Web::BulletinsController < Web::ApplicationController
   def archive
     authorize @bulletin
 
-    if @bulletin.may_archive?
-      @bulletin.archive!
+    if @bulletin.archive!
       redirect_back(fallback_location: bulletin_path(@bulletin), notice: t('.success'))
     else
       redirect_to @bulletin, status: :unprocessable_entity

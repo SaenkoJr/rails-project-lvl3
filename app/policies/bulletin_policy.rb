@@ -22,18 +22,18 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def send_to_moderate?
-    author? && !record.archived?
+    author? && record.may_send_to_moderate?
   end
 
   def archive?
-    author_or_admin? && !record.archived?
+    author_or_admin? && record.may_archive?
   end
 
   def publish?
-    admin?
+    admin? && record.may_publish?
   end
 
   def reject?
-    admin?
+    admin? && record.may_reject?
   end
 end
