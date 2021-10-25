@@ -30,7 +30,6 @@ class Web::BulletinsController < Web::ApplicationController
     authorize Bulletin
 
     @bulletin = current_user.bulletins.build bulletin_params
-    change_state(@bulletin)
 
     if @bulletin.save
       redirect_to @bulletin, notice: t('.success')
@@ -73,7 +72,10 @@ class Web::BulletinsController < Web::ApplicationController
   private
 
   def change_state(bulletin)
-    bulletin.make_draft if params[:make_draft]
+    return if bulletin.draft?
+    return bulletin.make_draft if params[:make_draft]
+
+    bulletin.send_to_moderate if bulletin.may_send_to_moderate?
   end
 
   def bulletin_params
