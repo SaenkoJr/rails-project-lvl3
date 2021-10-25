@@ -15,4 +15,6 @@ html
                 = link_to t('.users'), admin_users_path, class: 'nav-link link-dark'
                 = link_to t('.categories'), admin_categories_path, class: 'nav-link link-dark'
           .col-md-10
+            - if content_for?(:heading)
+              h2= yield :heading
             = yield
