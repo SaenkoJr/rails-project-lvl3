@@ -2,7 +2,7 @@ h2.mb-2= t('.heading')
 
 hr
 
-= simple_form_for @user, url: admin_user_path do |f|
+= simple_form_for [:admin, @user] do |f|
   = f.input :email
   = f.input :first_name
   = f.input :last_name

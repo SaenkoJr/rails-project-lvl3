@@ -3,7 +3,7 @@
 
 hr
 
-= search_form_for @q, url: admin_users_path, html: { class: 'row row-cols-4' } do |f|
+= search_form_for [:admin, @q], html: { class: 'row row-cols-4' } do |f|
   = f.input :email_cont,
             label: t('.email_cont')
   = f.input :first_name_or_last_name_cont,
