@@ -1,16 +1,8 @@
 # frozen_string_literal: true
 
 class BulletinPolicy < ApplicationPolicy
-  def new?
-    !user.guest?
-  end
-
   def create?
     !user.guest?
-  end
-
-  def edit?
-    author_or_admin? && !record.archived?
   end
 
   def update?
