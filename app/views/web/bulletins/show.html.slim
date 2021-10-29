@@ -15,7 +15,7 @@
           dd.col-sm-9.mb-4= @bulletin.category.name
 
           dt.col-sm-3.mb-4 #{t('.user')}:
-          dd.col-sm-9.mb-4= show_full_name_or_email(@bulletin.user)
+          dd.col-sm-9.mb-4= full_name_or_email(@bulletin.user)
 
           dt.col-sm-3.mb-4 #{t('.created_at')}:
           dd.col-sm-9.mb-4= l @bulletin.created_at
