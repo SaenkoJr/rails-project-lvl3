@@ -1,5 +1,7 @@
 h5= t('.my_bulletins')
+
 hr
+
 = search_form_for @q, html: { class: 'row row-cols-4' }, url: profile_path(@user) do |f|
   = f.input :title_cont,
             label: t('.title_cont')

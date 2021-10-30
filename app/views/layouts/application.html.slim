@@ -5,7 +5,8 @@ html
   body.d-flex.flex-column.h-100
     = render "layouts/shared/nav"
     = render "layouts/shared/flash"
-    main
-      .mt-sm-2.mb-2.pb-2
-        .container
-          = yield
+    main.mt-sm-2.mb-2.pb-2
+      .container
+        - if content_for?(:heading)
+          h1.mb-4= yield :heading
+        = yield
