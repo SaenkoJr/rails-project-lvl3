@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Guest
+  def self.policy_class
+    UserPolicy
+  end
+
   def id
     nil
   end

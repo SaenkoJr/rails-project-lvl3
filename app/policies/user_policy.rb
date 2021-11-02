@@ -2,20 +2,14 @@
 
 class UserPolicy < ApplicationPolicy
   def show?
-    current_user? || admin?
+    !user.guest? || admin?
   end
 
   def update?
-    current_user? || admin?
+    !user.guest? || admin?
   end
 
   def destroy?
-    current_user? || admin?
-  end
-
-  private
-
-  def current_user?
-    record.id == user.id
+    !user.guest? || admin?
   end
 end
